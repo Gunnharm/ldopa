@@ -1,0 +1,12 @@
+digraph G {
+    node [width=0.5];
+x1911c28 [label="[]"]
+x1911e90 [label="[s1]"]
+x1911bd0 [label="[s2]"]
+x1911a70 [label="[s3]"]
+x1911c28 -> x1911e90 [label="a"]
+x1911c28 -> x1911bd0 [label="b"]
+x1911e90 -> x1911a70 [label="b"]
+x1911bd0 -> x1911a70 [label="a"]
+x1911bd0 -> x1911bd0 [label="x"]
+}

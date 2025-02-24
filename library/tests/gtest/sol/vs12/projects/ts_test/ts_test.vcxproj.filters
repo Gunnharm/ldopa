@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src-tests">
+      <UniqueIdentifier>{8a2c178f-5e85-4a29-bfc9-4cb17417dd07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\ldopa">
+      <UniqueIdentifier>{e26dd9ac-47c5-40b3-8e71-e196efc6366b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\ldopa\ts">
+      <UniqueIdentifier>{90648e72-8202-4bac-977a-6a66067fef63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\ldopa\ts\algos">
+      <UniqueIdentifier>{fbb3dee3-a56c-41c7-82ea-dc0d61d01c33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\ldopa\ts\algos\obsolete1">
+      <UniqueIdentifier>{7cd01808-6789-4598-8517-f6c05899fec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\ldopa\ts\models">
+      <UniqueIdentifier>{c5b2631c-8216-4148-8da0-6d45345656a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\ldopa\ts\models\obsolete1">
+      <UniqueIdentifier>{9e62687b-c79d-4090-8ebb-e74c86aa9253}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\ts\algos\ts_simple_builder_1_test.cpp">
+      <Filter>src-tests\ldopa\ts\algos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\models\obsolete1\basets_1_test.cpp">
+      <Filter>src-tests\ldopa\ts\models\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\models\obsolete1\eventlog_ts_1_test.cpp">
+      <Filter>src-tests\ldopa\ts\models\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\models\eventlog_ts_2_test.cpp">
+      <Filter>src-tests\ldopa\ts\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\models\labeledts_1_test.cpp">
+      <Filter>src-tests\ldopa\ts\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\algos\obsolete1\eventlog_ts_grviz_exporter_1_test.cpp">
+      <Filter>src-tests\ldopa\ts\algos\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\algos\obsolete1\eventlog_tsbuilder_1_test.cpp">
+      <Filter>src-tests\ldopa\ts\algos\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\models\evlog_ts_red_1_test.cpp">
+      <Filter>src-tests\ldopa\ts\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\algos\evlog_ts_red_dotwriter_1_test.cpp">
+      <Filter>src-tests\ldopa\ts\algos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\algos\ts_misc_converters_1_test.cpp">
+      <Filter>src-tests\ldopa\ts\algos</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\src\ts\algos\obsolete1\tsbuilder_test_settings.h">
+      <Filter>src-tests\ldopa\ts\algos\obsolete1</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

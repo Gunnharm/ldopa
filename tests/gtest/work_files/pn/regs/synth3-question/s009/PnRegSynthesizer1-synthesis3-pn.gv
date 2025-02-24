@@ -1,0 +1,46 @@
+digraph G {
+    node [width=0.5];
+x121ed30 [label="a",shape=box]
+x121ee38 [label="b",shape=box]
+x121ed88 [label="c",shape=box]
+x121ebd0 [label="d",shape=box]
+x121ec28 [label="e",shape=box]
+x121ecd8 [label="f",shape=box]
+x1224250 [label="[],   (1)"]
+x12241a0 [label="[s2],[s5],[s6],"]
+x1223d80 [label="[s2],[s6],[s4],"]
+x1223908 [label="[s7],[s3],[s5],"]
+x1223ac0 [label="[s2],[s3],[s5],"]
+x12241f8 [label="[s7],[s3],[s4],"]
+x1223800 [label="[s7],[s6],[s4],"]
+x1223960 [label="[s2],[s3],[s4],"]
+x1223e30 [label="[s7],[s5],[s6],"]
+x1224250 -> x121ed30 
+x121ec28 -> x1224250 
+x1224250 -> x121ee38 
+x121ecd8 -> x1224250 
+x121ed30 -> x12241a0 
+x12241a0 -> x121ed88 
+x121ee38 -> x12241a0 
+x121ed30 -> x1223d80 
+x1223d80 -> x121ed88 
+x121ebd0 -> x1223d80 
+x1223d80 -> x121ec28 
+x121ed88 -> x1223908 
+x1223908 -> x121ebd0 
+x121ee38 -> x1223908 
+x1223908 -> x121ecd8 
+x121ed30 -> x1223ac0 
+x1223ac0 -> x121ebd0 
+x121ee38 -> x1223ac0 
+x121ed88 -> x12241f8 
+x12241f8 -> x121ec28 
+x12241f8 -> x121ecd8 
+x121ebd0 -> x1223800 
+x1223800 -> x121ec28 
+x1223800 -> x121ecd8 
+x121ed30 -> x1223960 
+x1223960 -> x121ec28 
+x121ee38 -> x1223e30 
+x1223e30 -> x121ecd8 
+}

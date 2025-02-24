@@ -1,0 +1,16 @@
+digraph G {
+    node [width=0.5];
+x658e88 [label=""]
+x658ee0 [label=""]
+x658f38 [label=""]
+x658f90 [label=""]
+x658fe8 [label=""]
+x659888 [label="t1",shape=box]
+x659978 [label="t2",shape=box]
+x658e88 -> x659888 
+x658e88 -> x659978 
+x658ee0 -> x659978 
+x659888 -> x658f38 
+x659888 -> x658f90 
+x659978 -> x658fe8 
+}

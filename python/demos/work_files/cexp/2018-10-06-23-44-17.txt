@@ -1,0 +1,2 @@
+Timestamp	Log file	Activities #	Traces #	Events #	TS1 build time (ms)	TS1 states #	TS1 trans #	TS1 simpl	TS1 prec	TS1 gener	threshold	VWSC	TS2 + TS3 build time (ms)	TS3 states #	TS3 trans #	TS3 simpl	TS3 prec	TS3 gener	PN synth time (ms)	PN pos #	PN trans #	PN acrs #
+2018-10-06 23:44:22	f:/se/projects/cpp/xi/ldopa/dev/root/0.1/tests/gtest/work_files/logs/good.ru/good.ru_full_reduced2.sq3	46	774	6604	762.0	3239	3238	0.00725644588544079	1.0	0.04884494866023503	0	0	0	47	492	0.08719851576994433	0.20575827132906055	0.7921601310892228

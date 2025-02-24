@@ -1,0 +1,1 @@
+PnRegSynthesizer1-syntWithLoop2_4_2-pn.gv отличается от PnRegSynthesizer1-syntWithLoop2_4_3-pn.gv тем, что анонимноесостояние не имеет строковой метки (см. число запятых!), но оно там присутствует

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="stdafx">
+      <UniqueIdentifier>{a557b179-a9f8-4858-b5f1-75063f63813f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{11389947-0327-42a5-8869-76222855faa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi">
+      <UniqueIdentifier>{49bc83d5-190a-4410-8af2-50510c64472b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa">
+      <UniqueIdentifier>{a12efd34-1723-4a84-93b4-c9e218e7fb7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\eventlog">
+      <UniqueIdentifier>{a6dd1b51-8da9-480d-9217-a553ecd4b370}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\eventlog\sqlite">
+      <UniqueIdentifier>{8f145c7d-8ec3-4a08-9f0c-b178978e7ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\eventlog\obsolete1">
+      <UniqueIdentifier>{1f239fb7-aaba-4c30-8dab-4dad9d7c0851}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ldopa_dll.h">
+      <Filter>src\xi\ldopa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\eventlog\sqlite\sqlitehelpers.h">
+      <Filter>src\xi\ldopa\eventlog\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\eventlog\sqlite\sqlitelog.h">
+      <Filter>src\xi\ldopa\eventlog\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\eventlog\obsolete1\csvlog.h">
+      <Filter>src\xi\ldopa\eventlog\obsolete1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\eventlog\obsolete1\csvlog_events.h">
+      <Filter>src\xi\ldopa\eventlog\obsolete1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\eventlog\obsolete1\eventlog.h">
+      <Filter>src\xi\ldopa\eventlog\obsolete1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\eventlog\eventlog.h">
+      <Filter>src\xi\ldopa\eventlog</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\eventlog\sqlite\sqlitehelpers.cpp">
+      <Filter>src\xi\ldopa\eventlog\sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\eventlog\sqlite\sqlitelog.cpp">
+      <Filter>src\xi\ldopa\eventlog\sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\eventlog\obsolete1\csvlog.cpp">
+      <Filter>src\xi\ldopa\eventlog\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\eventlog\obsolete1\csvlog_events.cpp">
+      <Filter>src\xi\ldopa\eventlog\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\dllmain.cpp" />
+  </ItemGroup>
+</Project>

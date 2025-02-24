@@ -1,0 +1,2 @@
+Timestamp	Log file	Activities #	Traces #	Events #	TS1 build time (ms)	TS1 states #	TS1 trans #	TS1 simpl	TS1 prec	TS1 gener	threshold	VWSC	TS2 + TS3 build time (ms)	TS3 states #	TS3 trans #	TS3 simpl	TS3 prec	TS3 gener	PN synth time (ms)	PN pos #	PN trans #	PN acrs #
+2018-10-07 00:32:41	f:/se/projects/cpp/xi/ldopa/dev/root/0.1/tests/gtest/work_files/logs/BPIC15_1_2/BPIC15_1_2.sq3	398	1199	52217	75771.0	40067	40066	0.004979222043352926	1.0	0.020443456271695637	0.05	0.05	177254.0	50	844	0.4463087248322148	0.6520995097626877	0.9292580576460836

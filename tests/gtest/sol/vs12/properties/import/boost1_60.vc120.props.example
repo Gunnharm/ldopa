@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <BOOST1_60_INCLUDE_DIR>f:\se\lib\cpp\boost\boost_1_60_0</BOOST1_60_INCLUDE_DIR>
+    <BOOST1_60_DLIB_DIR>
+    </BOOST1_60_DLIB_DIR>
+    <BOOST1_60_RLIB_DIR>
+    </BOOST1_60_RLIB_DIR>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="BOOST1_60_INCLUDE_DIR">
+      <Value>$(BOOST1_60_INCLUDE_DIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="BOOST1_60_DLIB_DIR">
+      <Value>$(BOOST1_60_DLIB_DIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="BOOST1_60_RLIB_DIR">
+      <Value>$(BOOST1_60_RLIB_DIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

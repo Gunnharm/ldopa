@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <SQLITE317_AM_INCLUDE_DIR>f:\se\lib\cpp\sqlite\prj\root\3.17\src\amalgam</SQLITE317_AM_INCLUDE_DIR>
+    <SQLITE317_32_DLIB_DIR>f:\se\lib\cpp\sqlite\prj\root\3.17\sol\vs12\output\Debug\Win32</SQLITE317_32_DLIB_DIR>
+    <SQLITE317_32_RLIB_DIR>f:\se\lib\cpp\sqlite\prj\root\3.17\sol\vs12\output\Release\Win32</SQLITE317_32_RLIB_DIR>
+    <SQLITE317_64_DLIB_DIR>f:\se\lib\cpp\sqlite\prj\root\3.17\sol\vs12\output\Debug\x64</SQLITE317_64_DLIB_DIR>
+    <SQLITE317_64_RLIB_DIR>f:\se\lib\cpp\sqlite\prj\root\3.17\sol\vs12\output\Release\x64</SQLITE317_64_RLIB_DIR>
+    </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="SQLITE317_AM_INCLUDE_DIR">
+      <Value>$(SQLITE317_AM_INCLUDE_DIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE317_32_DLIB_DIR">
+      <Value>$(SQLITE317_32_DLIB_DIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE317_32_RLIB_DIR">
+      <Value>$(SQLITE317_32_RLIB_DIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE317_64_DLIB_DIR">
+      <Value>$(SQLITE317_64_DLIB_DIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE317_64_RLIB_DIR">
+      <Value>$(SQLITE317_64_RLIB_DIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>    
+  </ItemGroup>
+</Project>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="stdafx">
+      <UniqueIdentifier>{12b5ae7e-ae9a-4d0c-8f04-2ac433a1d687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{ee075c3b-8588-4576-a73f-a23c63f0cac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi">
+      <UniqueIdentifier>{fc306f94-a7fc-4642-b8a0-d88469e886cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa">
+      <UniqueIdentifier>{328a305b-ec9a-4c59-ae05-00c41c93a4da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\utils">
+      <UniqueIdentifier>{e6bb54d4-17b7-4bf5-92e8-da7df8a9204a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\utils.h">
+      <Filter>src\xi\ldopa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ldopa_dll.h">
+      <Filter>src\xi\ldopa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ldopa_dll.h" Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+      <Filter>src\xi\ldopa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\utils\progress_callback.h">
+      <Filter>src\xi\ldopa\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\utils\elapsed_time.h">
+      <Filter>src\xi\ldopa\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\utils.cpp">
+      <Filter>src\xi\ldopa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\dllmain.cpp" />
+  </ItemGroup>
+</Project>

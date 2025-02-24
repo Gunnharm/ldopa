@@ -1,0 +1,2 @@
+Timestamp	Log file	Activities #	Traces #	Events #	TS1 build time (ms)	TS1 states #	TS1 trans #	TS1 simpl	TS1 prec	TS1 gener	threshold	VWSC	TS2 + TS3 build time (ms)	TS3 states #	TS3 trans #	TS3 simpl	TS3 prec	TS3 gener	PN synth time (ms)	PN pos #	PN trans #	PN acrs #
+2018-10-07 23:51:40	f:/temp/20181004/carmona-trs/Tkde2010PaperLogs/a12f0n00_5.tr.sq3	12	1800	11146	3306.0	26	29	0.2653061224489796	1.0	0.9491267239358233	0	0	0	0	0	0	0	0	52.0	13	13	26

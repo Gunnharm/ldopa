@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{9fc3cd0f-dfa9-459d-a01e-e3dc75a3924d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stdafx">
+      <UniqueIdentifier>{366f142e-0554-416e-9ab9-850708aea8aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ts">
+      <UniqueIdentifier>{f3e436dc-ea32-4ce8-8c74-2a435a6e96e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\pn">
+      <UniqueIdentifier>{e93ad8b6-dc47-4c39-a701-d81d0f90a973}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx\stdafx.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx\targetver.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx\stdafx.cpp">
+      <Filter>stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\eventlog\sqlitelog-bpw.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\eventlog_ts-bpw.cpp">
+      <Filter>src\ts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\ts_fbuilder-bpw.cpp">
+      <Filter>src\ts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\ts_metrics_calc-bpw.cpp">
+      <Filter>src\ts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\ts_reducer-bpw.cpp">
+      <Filter>src\ts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\pn\pn_regs_synth-bpw.cpp">
+      <Filter>src\pn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\pn\eventlog_pn-bpw.cpp">
+      <Filter>src\pn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\pn\evlog_ptnets_dotwritter-bpw.cpp">
+      <Filter>src\pn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\ts\evlog_ts_dotwritter-bpw.cpp">
+      <Filter>src\ts</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

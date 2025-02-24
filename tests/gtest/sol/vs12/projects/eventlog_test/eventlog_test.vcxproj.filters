@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src-tests">
+      <UniqueIdentifier>{ebcef7fb-c1df-435f-86e2-327a56fb728b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\ldopa">
+      <UniqueIdentifier>{58c55bed-076e-4ef9-80b2-e854aff1c330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\ldopa\event_log">
+      <UniqueIdentifier>{c00dc353-340a-4d85-aeef-06bcae4be6d3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\eventlog\csvlog_test.cpp">
+      <Filter>src-tests\ldopa\event_log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\eventlog\sqlitelog_test.cpp">
+      <Filter>src-tests\ldopa\event_log</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

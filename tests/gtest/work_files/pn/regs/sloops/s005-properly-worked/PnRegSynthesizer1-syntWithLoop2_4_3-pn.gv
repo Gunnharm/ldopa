@@ -1,0 +1,16 @@
+digraph G {
+    node [width=0.5];
+xa1fe20 [label="a",shape=box]
+xa1ff80 [label="b",shape=box]
+xa1fd70 [label="x",shape=box]
+xa201e8 [label="[],[s2],,   (1)"]
+xa1fbb8 [label="[],[s1],   (1)"]
+xa1ff28 [label="[s2],,[s3],"]
+xa201e8 -> xa1fe20 
+xa201e8 -> xa1fd70 
+xa1fd70 -> xa201e8 
+xa1fbb8 -> xa1ff80 
+xa1ff80 -> xa1ff28 
+xa1ff28 -> xa1fd70 
+xa1fd70 -> xa1ff28 
+}

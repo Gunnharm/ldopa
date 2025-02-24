@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="stdafx">
+      <UniqueIdentifier>{990c7f84-8376-41d2-a7bf-fa009c7960c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{b184c081-53a8-413c-9d7e-9b09938a63b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi">
+      <UniqueIdentifier>{2eef72be-338f-4966-82c0-4c00c555c805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa">
+      <UniqueIdentifier>{9177c6cd-3e40-4b1c-8ffd-5be01e231404}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\models">
+      <UniqueIdentifier>{cb5d62cd-a59f-4cef-b48e-bedc8db637c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\models\obsolete1">
+      <UniqueIdentifier>{fc986673-d0f4-415d-9023-cd8d1f1056bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\algos">
+      <UniqueIdentifier>{f8e158cc-caec-407e-a339-4308dfb73fec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\algos\obsolete1">
+      <UniqueIdentifier>{d9f49d16-d130-4974-b392-5e031c6360e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\algos\grviz">
+      <UniqueIdentifier>{da8e2419-07c6-4b01-a6e6-87866a7bc692}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ldopa_dll.h">
+      <Filter>src\xi\ldopa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\models\obsolete1\basets.h">
+      <Filter>src\xi\ldopa\models\obsolete1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\models\obsolete1\eventlogts.h">
+      <Filter>src\xi\ldopa\models\obsolete1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\models\labeledts.h">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\obsolete1\eventlogts_builder.h">
+      <Filter>src\xi\ldopa\algos\obsolete1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\obsolete1\eventlogts_grviz_exporter.h">
+      <Filter>src\xi\ldopa\algos\obsolete1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\models\eventlog_ts.h">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\models\eventlog_ts_stateids.h">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\ts_simple_builder.h">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\models\evlog_ts_red.h">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\freq_condenser.h">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\varws_ts_rebuilder.h">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\ts_metrics_calc.h">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\dual_ts_simulator.h">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\grviz\evlog_ts_red_dotwriter.h">
+      <Filter>src\xi\ldopa\algos\grviz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\ts_sas_converter.h">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ts\algos\ts_sloops_converter.h">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\models\obsolete1\basets.cpp">
+      <Filter>src\xi\ldopa\models\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\models\obsolete1\eventlogts.cpp">
+      <Filter>src\xi\ldopa\models\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\algos\obsolete1\eventlogts_builder.cpp">
+      <Filter>src\xi\ldopa\algos\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\algos\obsolete1\eventlogts_grviz_exporter.cpp">
+      <Filter>src\xi\ldopa\algos\obsolete1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\models\eventlog_ts.cpp">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\models\eventlog_ts_stateids.cpp">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\algos\ts_simple_builder.cpp">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\models\evlog_ts_red.cpp">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\algos\freq_condenser.cpp">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\algos\varws_ts_rebuilder.cpp">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\algos\ts_metrics_calc.cpp">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\ts\algos\dual_ts_simulator.cpp">
+      <Filter>src\xi\ldopa\algos</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src-tests">
+      <UniqueIdentifier>{b766cfb9-bd93-4ae3-8295-53e5066d466a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\complex\c_pn_synthesis_1_test.cpp">
+      <Filter>src-tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\src\complex\complex_settings.h">
+      <Filter>src-tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

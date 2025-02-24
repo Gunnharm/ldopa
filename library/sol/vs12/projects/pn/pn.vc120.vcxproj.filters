@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ldopa_dll.h">
+      <Filter>src\xi\ldopa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\pn\models\gen_petrinet.h">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\pn\models\base_ptnet.h">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\pn\algos\grviz\base_ptnet_dotwriter.h">
+      <Filter>src\xi\ldopa\algos\grviz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\pn\algos\regions\pn_synthesis.h">
+      <Filter>src\xi\ldopa\algos\regions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\pn\models\evlog_ptnets.h">
+      <Filter>src\xi\ldopa\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\pn\algos\grviz\evlog_ptnets_dotwriter.h">
+      <Filter>src\xi\ldopa\algos\grviz</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{9f50f087-39cf-4cf3-a220-4bc717b24a96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stdafx">
+      <UniqueIdentifier>{a2d8be86-dbfe-4cf2-8043-0061d4869a7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi">
+      <UniqueIdentifier>{12af515e-506a-474e-b082-ec9339f20b38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa">
+      <UniqueIdentifier>{d1a8a633-ea89-499e-ab79-18ee7a5d3c9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\models">
+      <UniqueIdentifier>{b8882c90-63d9-4694-b93f-9ed7bbefcbd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\algos">
+      <UniqueIdentifier>{b85ab976-7424-469e-a0d9-093422cd3f0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\algos\grviz">
+      <UniqueIdentifier>{ea2ee813-aabf-411a-90d9-154e45126e47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\algos\regions">
+      <UniqueIdentifier>{abd48a07-b82a-4e66-9370-fde41ee5a5df}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>stdafx</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

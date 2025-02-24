@@ -1,0 +1,16 @@
+digraph G {
+    node [width=0.5];
+xea9050 [label="(1)"]
+xea90a8 [label="(2)"]
+xea9100 [label=""]
+xea9158 [label=""]
+xea99b8 [label=""]
+xea9a50 [label="t1",shape=box]
+xea9b40 [label="t2",shape=box]
+xea9050 -> xea9a50 
+xea9050 -> xea9b40 
+xea90a8 -> xea9b40 
+xea9a50 -> xea9100 
+xea9a50 -> xea9158 
+xea9b40 -> xea99b8 
+}

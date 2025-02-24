@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="stdafx">
+      <UniqueIdentifier>{96108863-36c0-4c2a-b267-c9e517d602d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{89c4d3b6-cac5-43fc-976c-20e44e5ade1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi">
+      <UniqueIdentifier>{9c50cc00-816f-425f-8cab-e4f828ffb845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa">
+      <UniqueIdentifier>{2e06d51f-e3c1-4360-a6a7-6239be517476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\graphs">
+      <UniqueIdentifier>{c33a520a-8503-4048-8263-257533d653ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\graphs\boost">
+      <UniqueIdentifier>{f4d141ff-367f-4c37-b77d-75292162c7d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\graphs\_obsolete">
+      <UniqueIdentifier>{c6445cf7-1105-41af-b294-02a4360a75e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\graphs\algos">
+      <UniqueIdentifier>{3664773c-90a9-4bfc-a6cf-c2ac9dff2445}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\ldopa\graphs\algos\grviz">
+      <UniqueIdentifier>{16229e7e-e1bb-4a6d-a7b7-77f359015d65}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\ldopa_dll.h" />
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\graphs\boost\bgl_graph_adapters.h">
+      <Filter>src\xi\ldopa\graphs\boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\graphs\bidigraph.h">
+      <Filter>src\xi\ldopa\graphs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\graphs\_obsolete\named_bidigraph.h">
+      <Filter>src\xi\ldopa\graphs\_obsolete</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\graphs\algos\grviz\bidigraph_dot_writer.h">
+      <Filter>src\xi\ldopa\graphs\algos\grviz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\graphs\algos\grviz\graph_dot_writer.h">
+      <Filter>src\xi\ldopa\graphs\algos\grviz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\graphs\boost\bgl_graph_wrappers.h">
+      <Filter>src\xi\ldopa\graphs\boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\ldopa\graphs\algos\grviz\gen_dot_writer.h">
+      <Filter>src\xi\ldopa\graphs\algos\grviz</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\graphs\bidigraph.cpp">
+      <Filter>src\xi\ldopa\graphs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\graphs\_obsolete\named_bidigraph.cpp">
+      <Filter>src\xi\ldopa\graphs\_obsolete</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\graphs\algos\grviz\bidigraph_dot_writer.cpp">
+      <Filter>src\xi\ldopa\graphs\algos\grviz</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\ldopa\graphs\algos\grviz\graph_dot_writer.cpp">
+      <Filter>src\xi\ldopa\graphs\algos\grviz</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
