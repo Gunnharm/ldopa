@@ -24,7 +24,7 @@ ListVerticesStorage::ListVerticesStorage(BidiGraph* gr)
     : _graph(gr)
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> ListVerticesStorage(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> ListVerticesStorage(): %p\n", this);
 #endif
 }
 
@@ -32,7 +32,7 @@ ListVerticesStorage::ListVerticesStorage(BidiGraph* gr)
 ListVerticesStorage::~ListVerticesStorage()
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> ~ListVerticesStorage(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> ~ListVerticesStorage(): %p\n", this);
 #endif
 }
 
@@ -106,7 +106,7 @@ MapNamedVerticesStorage::MapNamedVerticesStorage(BidiGraph* gr, bool createRever
     _reverseLookupMap(nullptr)
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> MapNamedVerticesStorage(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> MapNamedVerticesStorage(): %p\n", this);
 #endif
     if (createReverseMap)
         _reverseLookupMap = new Vertex2StrMap();
@@ -117,7 +117,7 @@ MapNamedVerticesStorage::MapNamedVerticesStorage(bool createReverseMap):
     _reverseLookupMap(nullptr)
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> MapNamedVerticesStorage(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> MapNamedVerticesStorage(): %p\n", this);
 #endif
     if (createReverseMap)
         _reverseLookupMap = new Vertex2StrMap();
@@ -127,7 +127,7 @@ MapNamedVerticesStorage::MapNamedVerticesStorage(bool createReverseMap):
 MapNamedVerticesStorage::~MapNamedVerticesStorage()
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> ~MapNamedVerticesStorage(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> ~MapNamedVerticesStorage(): %p\n", this);
 #endif
 
     // if reverse map is used
@@ -295,7 +295,7 @@ OutInMMapEdgeStorage::OutInMMapEdgeStorage(BidiGraph* gr)
     : _graph(gr)
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> OutInMMapEdgeStorage(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> OutInMMapEdgeStorage(): %p\n", this);
 #endif
 }
 
@@ -303,7 +303,7 @@ OutInMMapEdgeStorage::OutInMMapEdgeStorage(BidiGraph* gr)
 OutInMMapEdgeStorage::~OutInMMapEdgeStorage()
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> ~OutInMMapEdgeStorage(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> ~OutInMMapEdgeStorage(): %p\n", this);
 #endif
 
     cleanMapsInternal();
@@ -593,7 +593,7 @@ BidiGraph::BidiGraph(IVerticesStorage* vs, IEdgesStorage* es):
     _edgesStorage(es)
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> BidiGraph(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> BidiGraph(): %p\n", this);
 #endif
 
     if (!_vertStorage)
@@ -622,7 +622,7 @@ BidiGraph::BidiGraph(IVerticesStorage* vs, IEdgesStorage* es):
 BidiGraph::~BidiGraph()
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> ~BidiGraph(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> ~BidiGraph(): %p\n", this);
 #endif
 
     // frees the memory
@@ -661,14 +661,14 @@ BidiGraphVertex::BidiGraphVertex(BidiGraph* ownerGr):
     _ownerGr(ownerGr) //,
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> BidiGraphVertex(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> BidiGraphVertex(): %p\n", this);
 #endif
 }
 
 BidiGraphVertex::~BidiGraphVertex()
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> ~BidiGraphVertex(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> ~BidiGraphVertex(): %p\n", this);
 #endif
 }
 
@@ -687,7 +687,7 @@ _srcVertex(srcV),
 _dstVertex(dstV)
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> BidiGraphEdge(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> BidiGraphEdge(): %p\n", this);
 #endif
 
     if (!srcV->getOwnerGraph() || !dstV->getOwnerGraph())
@@ -705,7 +705,7 @@ _dstVertex(dstV)
 BidiGraphEdge::~BidiGraphEdge()
 {
 #ifdef XI_LDOPA_GRAPHS_DIRGRAPH_DEBUG_MESSAGES
-    printf("--[Debug]--> ~BidiGraphEdge(): %#010x\n", (unsigned int)this);
+    printf("--[Debug]--> ~BidiGraphEdge(): %p\n", this);
 #endif
 }
 

@@ -289,7 +289,7 @@ void VarWsTsBuilder::restateTrace(int traceNum)
     _ts->getOrAddTransF(regState, newState, actAttr, freq);  // пусть уже и частота сохранится
 
     // наконец, если это последний символ трассы, надо пометить состояние принимающим
-    if (curEventNum = traceSize - 1)
+    if ((curEventNum = traceSize - 1))
         _ts->setAcceptingState(newState, true);
 }
 

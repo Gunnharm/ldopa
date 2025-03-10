@@ -71,6 +71,10 @@ struct StateProperty_traits_base
 template<typename TStateID, typename TStateProperty>
 struct StateProperty_traits : public StateProperty_traits_base<TStateID>
 {
+    // including types from base class
+    using typename StateProperty_traits_base<TStateID>::StateIDCArg;
+    using typename StateProperty_traits_base<TStateID>::StateIDCRes;
+
     /** \brief Default behavior is to embed both an ID and a custom property. */
     struct _StateProperty
     {
@@ -112,6 +116,11 @@ template<typename TStateID>
 struct StateProperty_traits<TStateID, boost::no_property> : 
     public StateProperty_traits_base<TStateID>
 {
+    // including types from base class
+    using typename StateProperty_traits_base<TStateID>::StateIDCArg;
+    using typename StateProperty_traits_base<TStateID>::StateIDCRes;
+    using typename StateProperty_traits_base<TStateID>::StateIDRef;
+
     /** \brief Redefines a StateProperty type. */
     typedef TStateID StPropBundle;
 
@@ -181,6 +190,10 @@ struct TransProperty_traits_base
 template<typename TLabel, typename TTransProperty>
 struct TransProperty_traits : public TransProperty_traits_base<TLabel>
 {
+    // including types from base class
+    using typename TransProperty_traits_base<TLabel>::LabelCArg;
+    using typename TransProperty_traits_base<TLabel>::LabelCRes;
+
     /** \brief Default behavior is to embed both a label and a custom property. */
     struct _TransProperty
     {
@@ -222,6 +235,11 @@ template<typename TLabel>
 struct TransProperty_traits<TLabel, boost::no_property> :
     public TransProperty_traits_base<TLabel>
 {
+    // including types from base class
+    using typename TransProperty_traits_base<TLabel>::LabelCArg;
+    using typename TransProperty_traits_base<TLabel>::LabelCRes;
+    using typename TransProperty_traits_base<TLabel>::LabelRef;
+
     /** \brief  Defines a type for bundle property associated with TS transition. */
     typedef TLabel TrPropBundle;
 
@@ -274,7 +292,7 @@ struct BGL_traits_base
 
 
 /** \brief xi traits class for some details of BGL class. */
-template<typename TGraph, typename TOutEdgeListS = TGraph::out_edge_list_selector >
+template<typename TGraph, typename TOutEdgeListS = typename TGraph::out_edge_list_selector >
 struct BGL_traits : public BGL_traits_base<TGraph>
 {
 };
@@ -450,51 +468,53 @@ public:
 
     //----<Custom data properties>----
 
+    using typename BaseLabeledTS<TStateID, TLabel, TStateProperty, TTransProperty>::Graph;
+
     /** \brief Alias for a base graph wrapper type. */
-    typedef gr::BoostBidiGraphP<BaseLabeledTS<TStateID, TLabel, 
+    typedef gr::BoostBidiGraphP<typename BaseLabeledTS<TStateID, TLabel, 
         TStateProperty, TTransProperty>::Graph>
             BaseGraph;
 
 
     /** \brief State type alias for graph Vertex. */
-    typedef typename Vertex State;          // BoostGraphP
+    typedef typename BaseGraph::Vertex State;          // BoostGraphP
 
     /** \brief Transition type alias for graph Edge. */
-    typedef typename Edge Transition;
+    typedef typename BaseGraph::Edge Transition;
 
     /** \brief Iterator for states modeled by vertices of a graph. */
-    typedef typename VertexIter StateIter;
+    typedef typename BaseGraph::VertexIter StateIter;
 
     /** \brief Iterator for transitions modeled by output edges of a graph. */
-    typedef typename OedgeIter OtransIter;
+    typedef typename BaseGraph::OedgeIter OtransIter;
 
     /** \brief Iterator for transitions modeled by input edges of a graph. */
-    typedef typename IedgeIter ItransIter;
+    typedef typename BaseGraph::IedgeIter ItransIter;
 
     /** \brief Iterator for transitions modeled by edges of a graph. */
-    typedef typename EdgeIter TransIter;
+    typedef typename BaseGraph::EdgeIter TransIter;
 
     /** \brief A pair of state iterators, which represents a collection of states. */
-    typedef VertexIterPair StateIterPair;
+    typedef typename BaseGraph::VertexIterPair StateIterPair;
 
     /** \brief A pair of transition iterators, which represents a collection of output edges. */
-    typedef OedgeIterPair OtransIterPair;
+    typedef typename BaseGraph::OedgeIterPair OtransIterPair;
 
     /** \brief A pair of transition iterators, which represents a collection of input edges. */
-    typedef IedgeIterPair ItransIterPair;
+    typedef typename BaseGraph::IedgeIterPair ItransIterPair;
 
     /** \brief A pair of transition iterators, which represents a collection of edges. */
-    typedef EdgeIterPair TransIterPair;
+    typedef typename BaseGraph::EdgeIterPair TransIterPair;
 
     //----<Filter Iterator Predicates>----
     
     /** \brief Define a predicate that filters a destination state. */
-    typedef TargetVertexFilter TargetStateFilter;
+    typedef typename BaseGraph::TargetVertexFilter TargetStateFilter;
 
     /** \brief Filter iterator for dealing with only those transition, which have 
      *  a given target state.
      */
-    typedef TargVertexEdgeIter TargStateTransIter;
+    typedef typename BaseGraph::TargVertexEdgeIter TargStateTransIter;
 
     /** \brief A pair of transition iterators, which represents a collection of edges. */
     typedef std::pair<TargStateTransIter, TargStateTransIter> TargStateTransIterPair;

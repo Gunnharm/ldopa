@@ -163,7 +163,7 @@ public:
         IEventLog::Attribute& actAttr) override;
 
     virtual const IStateId* makeState(IEventTrace* tr, int eventNum,
-        IEventLog::Attribute& actAttr);
+        IEventLog::Attribute& actAttr) override;
 
     virtual void reset() override;
 

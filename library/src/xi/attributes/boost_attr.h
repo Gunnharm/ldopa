@@ -122,14 +122,14 @@ public:
     std::string operator()(void* p) const
     {
         // TODO: здесь только адрес в 16-ричной форме
-        std::string s = std::to_string((int)p);
+        std::string s = std::to_string((uintptr_t)p);
         return s;
     }
 
     std::string operator()(const void* p) const
     {
         // TODO: здесь только адрес в 16-ричной форме
-        std::string s = std::to_string((int)p);
+        std::string s = std::to_string((uintptr_t)p);
         return s;
     }
 
@@ -151,7 +151,7 @@ public:
     std::string operator()(const DestrObjSharedPtr& dob) const
     {
         // TODO: в 16-ричной форме
-        std::string s = std::to_string((int)dob.get());
+        std::string s = std::to_string((uintptr_t)dob.get());
         return s;
     }
 

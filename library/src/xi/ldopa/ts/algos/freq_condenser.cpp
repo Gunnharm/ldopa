@@ -100,7 +100,7 @@ void CondensedTsBuilder::markGauntTransitions()
     for (TS::LogTS::TransIterPair trs = _ts->getTransitions();
         trs.first != trs.second; ++trs.first)
     {
-        TS::Transition& t = *(trs.first);               // для удобства
+        TS::Transition&& t = *(trs.first);               // для удобства
         EvLogTSWithFreqs::IntRes tr_r = _ts->getTransFreq(t);
 
         // TODO: если частота для заданной дуги не задана, мы ее пока не удаляем, 

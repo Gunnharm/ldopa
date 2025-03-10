@@ -285,7 +285,7 @@ protected:
     static void fillAPMUpForGraph(VertexIndexAPM& apm, const Graph& g)
     {
         int i = 0;
-        BGL_FORALL_VERTICES(v, g, Graph)
+        BGL_FORALL_VERTICES_T(v, g, Graph)
         {
             put(apm, v, i++);
         }
@@ -339,28 +339,30 @@ public:
     /** \brief A pair of edge iterators, which represents a collection of input edges. */
     typedef std::pair<IedgeIter, IedgeIter> IedgeIterPair;
 
+    typedef typename BoostGraphP<Graph>::Vertex Vertex;
+
 public:
 
     /** \brief Virtual destructor. */
     virtual ~BoostBidiGraphP()
     {
-        deleteGraph();
+        this->deleteGraph();
     }
 
 public:
     //-----<BGL Shortcuts>----
 
     /** \brief Gets all input edges of a vertex \a v. */
-    inline IedgeIterPair getInEdges(Vertex v) { return boost::in_edges(v, getGraph()); }
+    inline IedgeIterPair getInEdges(Vertex v) { return boost::in_edges(v, this->getGraph()); }
 
     /** \brief Gets all input edges of a vertex \a v (const). */
-    inline IedgeIterPair getInEdges(Vertex v) const { return boost::in_edges(v, getGraph()); }
+    inline IedgeIterPair getInEdges(Vertex v) const { return boost::in_edges(v, this->getGraph()); }
 
     /** \brief Returns the numbers of input  edges of a vertix \a v. */
-    inline size_t getInEdgesNum(Vertex v) const { return (size_t)boost::in_degree(v, getGraph()); }
+    inline size_t getInEdgesNum(Vertex v) const { return (size_t)boost::in_degree(v, this->getGraph()); }
 
      /** \brief Clears all input edges of a vertex \a v. */
-    inline void clearInEdges(Vertex v) { boost::clear_in_edges(v, getGraph()); }
+    inline void clearInEdges(Vertex v) { boost::clear_in_edges(v, this->getGraph()); }
 
 }; // class BoostBidiGraphP
 

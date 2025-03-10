@@ -19,8 +19,8 @@
 
 // std
 #include <list>
-#include <set>
 #include <map>
+#include <string>
 
 
 // uncomment to let debug messages
@@ -448,10 +448,10 @@ public:
         BidiGraphVertex* dstVertex) const override;
 
     // IEdgesStorage::
-    virtual BidiGraphEdge* getFirstOutEdge(BidiGraphVertex* srcVertex, BidiGraphVertex* dstVertex) const;
+    virtual BidiGraphEdge* getFirstOutEdge(BidiGraphVertex* srcVertex, BidiGraphVertex* dstVertex) const override;
 
     // IEdgesStorage::
-    virtual BidiGraphEdge* getFirstInEdge(BidiGraphVertex* dstVertex, BidiGraphVertex* srcVertex) const;
+    virtual BidiGraphEdge* getFirstInEdge(BidiGraphVertex* dstVertex, BidiGraphVertex* srcVertex) const override;
 
     // IEdgesStorage::
     virtual void getAllEdges(BidiGraphVertex* srcVertex, BidiGraphVertex* dstVertex, 

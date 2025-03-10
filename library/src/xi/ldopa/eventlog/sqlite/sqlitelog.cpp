@@ -539,7 +539,7 @@ bool SQLiteLog::getLogAttr(const char* id, Attribute& a)
 IAttributesEnumerator* SQLiteLog::getLogAttrs()
 {
     if (!isOpenIntern())
-        return false;               // по соглашению
+        return nullptr;               // по соглашению
 
     // если лог открыт, то перед тем, как запрашивать атрибуты, нужно уточнить, знаем
     // ли мы их число и, соответственно, распределено ли достаточно памяти для их хранения
@@ -586,7 +586,7 @@ bool SQLiteLog::getEventAttr(int eventId, const char* id, Attribute& a)
 IAttributesEnumerator* SQLiteLog::getEventAttrs(int traceNum, int eventNum)
 {
     if (!isOpenIntern())
-        return false;               // по соглашению
+        return nullptr;               // по соглашению
 
     return requestEventAttrs(traceNum, eventNum);
 }
@@ -596,7 +596,7 @@ IAttributesEnumerator* SQLiteLog::getEventAttrs(int traceNum, int eventNum)
 IAttributesEnumerator* SQLiteLog::getEventAttrs(int eventId)
 {
     if (!isOpenIntern())
-        return false;               // по соглашению
+        return nullptr;               // по соглашению
 
     return requestEventAttrsByID(eventId);
 }
@@ -617,7 +617,7 @@ bool SQLiteLog::getTraceAttr(int traceNum, const char* id, Attribute& a)
 IAttributesEnumerator* SQLiteLog::getTraceAttrs(int traceNum)
 {
     if (!isOpenIntern())
-        return false;               // по соглашению
+        return nullptr;               // по соглашению
 
     return requestTraceAttrs(traceNum);
 }
