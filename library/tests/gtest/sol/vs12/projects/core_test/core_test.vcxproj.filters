@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src-tests">
+      <UniqueIdentifier>{5c16d584-38e8-4817-b316-4acef66fef67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\xi">
+      <UniqueIdentifier>{b495cda7-9f6e-4441-9216-603f19ce9b3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\xi\collections">
+      <UniqueIdentifier>{a419c6aa-cb05-4fb3-9d60-ad4dbdb11085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src-tests\xi\attributes">
+      <UniqueIdentifier>{ac2e53be-1dc5-4317-b8ee-b175cbaf2e5a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\core\collections\enumerators_1_test.cpp">
+      <Filter>src-tests\xi\collections</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\core\collections\custom_enums.cpp">
+      <Filter>src-tests\xi\collections</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\core\attributes\boost_attr_1_test.cpp">
+      <Filter>src-tests\xi\attributes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\src\core\collections\custom_enums.h">
+      <Filter>src-tests\xi\collections</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

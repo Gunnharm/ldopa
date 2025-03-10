@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demos", "demos", "{DDCF5501-94EA-49DC-8A8D-C6E0E0D1D33E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xilib", "xilib", "{9D6F5613-2A37-47F2-8364-E59AB94EDCC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{45FAF031-E207-499B-9CA1-F618175B90D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E77B1E8D-3578-4105-BB27-619548D4C78B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "strutils.vc120", "projects\strutils\strutils.vc120.vcxproj", "{0055CB37-9234-481A-813E-E1FE5AF658F4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD} = {D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "strutils_test", "..\..\tests\gtest\sol\vs12\projects\strutils_test\strutils_test.vcxproj", "{62D6DF30-02BF-48F7-BB43-81F766237F32}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0055CB37-9234-481A-813E-E1FE5AF658F4} = {0055CB37-9234-481A-813E-E1FE5AF658F4}
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD} = {D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core.vc120", "projects\core\core.vc120.vcxproj", "{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core_test", "..\..\tests\gtest\sol\vs12\projects\core_test\core_test.vcxproj", "{2675E56D-E870-4A15-B101-09137CB10F33}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD} = {D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug2dll|Win32 = Debug2dll|Win32
+		DebugDLL|Win32 = DebugDLL|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0055CB37-9234-481A-813E-E1FE5AF658F4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0055CB37-9234-481A-813E-E1FE5AF658F4}.Debug|Win32.Build.0 = Debug|Win32
+		{0055CB37-9234-481A-813E-E1FE5AF658F4}.Debug2dll|Win32.ActiveCfg = Debug2dll|Win32
+		{0055CB37-9234-481A-813E-E1FE5AF658F4}.Debug2dll|Win32.Build.0 = Debug2dll|Win32
+		{0055CB37-9234-481A-813E-E1FE5AF658F4}.DebugDLL|Win32.ActiveCfg = DebugDLL|Win32
+		{0055CB37-9234-481A-813E-E1FE5AF658F4}.DebugDLL|Win32.Build.0 = DebugDLL|Win32
+		{0055CB37-9234-481A-813E-E1FE5AF658F4}.Release|Win32.ActiveCfg = Release|Win32
+		{0055CB37-9234-481A-813E-E1FE5AF658F4}.Release|Win32.Build.0 = Release|Win32
+		{62D6DF30-02BF-48F7-BB43-81F766237F32}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62D6DF30-02BF-48F7-BB43-81F766237F32}.Debug|Win32.Build.0 = Debug|Win32
+		{62D6DF30-02BF-48F7-BB43-81F766237F32}.Debug2dll|Win32.ActiveCfg = Debug2dll|Win32
+		{62D6DF30-02BF-48F7-BB43-81F766237F32}.Debug2dll|Win32.Build.0 = Debug2dll|Win32
+		{62D6DF30-02BF-48F7-BB43-81F766237F32}.DebugDLL|Win32.ActiveCfg = DebugDLL|Win32
+		{62D6DF30-02BF-48F7-BB43-81F766237F32}.DebugDLL|Win32.Build.0 = DebugDLL|Win32
+		{62D6DF30-02BF-48F7-BB43-81F766237F32}.Release|Win32.ActiveCfg = Release|Win32
+		{62D6DF30-02BF-48F7-BB43-81F766237F32}.Release|Win32.Build.0 = Release|Win32
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}.Debug|Win32.Build.0 = Debug|Win32
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}.Debug2dll|Win32.ActiveCfg = Debug2dll|Win32
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}.Debug2dll|Win32.Build.0 = Debug2dll|Win32
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}.DebugDLL|Win32.ActiveCfg = DebugDLL|Win32
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}.DebugDLL|Win32.Build.0 = DebugDLL|Win32
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}.Release|Win32.ActiveCfg = Release|Win32
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD}.Release|Win32.Build.0 = Release|Win32
+		{2675E56D-E870-4A15-B101-09137CB10F33}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2675E56D-E870-4A15-B101-09137CB10F33}.Debug|Win32.Build.0 = Debug|Win32
+		{2675E56D-E870-4A15-B101-09137CB10F33}.Debug2dll|Win32.ActiveCfg = Debug2dll|Win32
+		{2675E56D-E870-4A15-B101-09137CB10F33}.Debug2dll|Win32.Build.0 = Debug2dll|Win32
+		{2675E56D-E870-4A15-B101-09137CB10F33}.DebugDLL|Win32.ActiveCfg = DebugDLL|Win32
+		{2675E56D-E870-4A15-B101-09137CB10F33}.DebugDLL|Win32.Build.0 = DebugDLL|Win32
+		{2675E56D-E870-4A15-B101-09137CB10F33}.Release|Win32.ActiveCfg = Release|Win32
+		{2675E56D-E870-4A15-B101-09137CB10F33}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0055CB37-9234-481A-813E-E1FE5AF658F4} = {9D6F5613-2A37-47F2-8364-E59AB94EDCC3}
+		{62D6DF30-02BF-48F7-BB43-81F766237F32} = {E77B1E8D-3578-4105-BB27-619548D4C78B}
+		{D21072D2-136B-41A2-B7D3-DDDD26FFEBCD} = {9D6F5613-2A37-47F2-8364-E59AB94EDCC3}
+		{2675E56D-E870-4A15-B101-09137CB10F33} = {E77B1E8D-3578-4105-BB27-619548D4C78B}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="stdafx">
+      <UniqueIdentifier>{2415e6a4-c22e-4006-abe5-262036f64be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{cd210ae4-c9f2-4a08-916a-c7cbe35ccd2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi">
+      <UniqueIdentifier>{84007ead-b786-4f1b-a0af-539fcd410764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xi\strutils">
+      <UniqueIdentifier>{e852494f-c103-42b5-a0b1-3c40cf7cbc6e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\strutils\_package_doxydoc.h">
+      <Filter>src\xi\strutils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\_package_doxydoc.h">
+      <Filter>src\xi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\strutils\set_str_pool.h">
+      <Filter>src\xi\strutils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\strutils\substr.h">
+      <Filter>src\xi\strutils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\xi\xilib_dll.h">
+      <Filter>src\xi</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>stdafx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\strutils\set_str_pool.cpp">
+      <Filter>src\xi\strutils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\strutils\substr.cpp">
+      <Filter>src\xi\strutils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\xi\dllmain.cpp" />
+  </ItemGroup>
+</Project>
