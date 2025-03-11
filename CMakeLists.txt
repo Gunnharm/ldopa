@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 
 project(ldopa)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
@@ -15,4 +15,6 @@ else()
     message(FATAL_ERROR "Boost not found! install with something like sudo apt-get install libboost-all-dev")
 endif()
 
-add_subdirectory(library/src)
+find_package(SQLite3 REQUIRED)
+
+add_subdirectory(library)

@@ -169,7 +169,7 @@ TEST_F(LabeledTS_1_Test, StatePropertyTypes2)
     ASSERT_TRUE((std::is_same<const Str &, Lts2::StateIDCArg>::value));
     ASSERT_TRUE((std::is_same<const Str &, Lts2::StateIDCRes>::value));
 
-    ASSERT_TRUE((std::is_same<const StateProperty_traits<Str, double>::StPropBundleCArg &,
+    ASSERT_TRUE((std::is_same<StateProperty_traits<Str, double>::StPropBundleCArg &,
         Lts2::StPropBundleCArg>::value));
     ASSERT_TRUE((std::is_same< StateProperty_traits<Str, double>::StPropBundle &,
         Lts2::StPropBundleRef>::value));
@@ -736,7 +736,7 @@ TEST_F(LabeledTS_1_Test, CopyConstrTS1)
     Lts1 ts2 = ts1;
     ASSERT_EQ(4, ts2.getStatesNum());           //ASSERT_EQ(3, ts2.getStatesNum());
     ASSERT_EQ(5, ts2.getTransitionsNum());      //ASSERT_EQ(4, ts2.getTransitionsNum());     
-    ASSERT_TRUE(ts2.getStatesNum() == ts2.getRegStatesNum() + ts2.getAnonStatesNum());
+    ASSERT_EQ(ts2.getStatesNum(), ts2.getRegStatesNum() + ts2.getAnonStatesNum());
 
     // проверяем, что по тем же состояниям берутся стейты в новой СП
     Lts1::StateRes ts2_s1r = ts2.getState(1);

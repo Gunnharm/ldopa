@@ -24,7 +24,7 @@ LdopaException LdopaException::f(const char * _Format, ...)
 
     va_list argptr;
     va_start(argptr, _Format);
-    vsprintf_s(errMes, MAX_FORMAT_STR_SIZE - 1, _Format, argptr);
+    vsnprintf(errMes, sizeof(errMes), _Format, argptr);
     va_end(argptr);
 
     return LdopaException(errMes, ERC_DEF);
@@ -35,7 +35,7 @@ LdopaException LdopaException::f(const char * _Format, ...)
 LdopaException LdopaException::f(const char * _Format, va_list argptr)
 {
     char errMes[MAX_FORMAT_STR_SIZE];
-    vsprintf_s(errMes, MAX_FORMAT_STR_SIZE - 1, _Format, argptr);
+    vsnprintf(errMes, sizeof(errMes), _Format, argptr);
 
     return LdopaException(errMes, ERC_DEF);
 }
@@ -49,7 +49,7 @@ LdopaException LdopaException::f(ErrorCode erCode, const char * _Format, ...)
 
     va_list argptr;
     va_start(argptr, _Format);
-    vsprintf_s(errMes, MAX_FORMAT_STR_SIZE - 1, _Format, argptr);
+    vsnprintf(errMes, sizeof(errMes), _Format, argptr);
     va_end(argptr);
 
     return LdopaException(errMes, erCode);
@@ -60,7 +60,7 @@ LdopaException LdopaException::f(ErrorCode erCode, const char * _Format, ...)
 LdopaException LdopaException::f(ErrorCode erCode, const char * _Format, va_list argptr)
 {
     char errMes[MAX_FORMAT_STR_SIZE];
-    vsprintf_s(errMes, MAX_FORMAT_STR_SIZE - 1, _Format, argptr);
+    vsnprintf(errMes, sizeof(errMes), _Format, argptr);
 
     return LdopaException(errMes, erCode);
 }

@@ -60,7 +60,7 @@ struct EvLogTSWithFreqsDotVisitor :
             if (ts.isStateAccepting(s))
                 pars.append("peripheries", "2");
 
-            str << makeUintHexId((unsigned int)s) << " " << makeParamValueStr(pars) << std::endl;
+            str << makeUintHexId((uintptr_t)s) << " " << makeParamValueStr(pars) << std::endl;
         }
 
 
@@ -69,12 +69,12 @@ struct EvLogTSWithFreqsDotVisitor :
         boost::tie(trIt, trItEnd) = ts.getTransitions();
         for (; trIt != trItEnd; ++trIt)
         {
-            TS::Transition& tr = *trIt;
+            TS::Transition&& tr = *trIt;
             TS::State src = ts.getSrcState(tr);
             TS::State targ = ts.getTargState(tr);
 
-            std::string srcId = makeUintHexId((unsigned int)src);
-            std::string targId = makeUintHexId((unsigned int)targ);
+            std::string srcId = makeUintHexId((uintptr_t)src);
+            std::string targId = makeUintHexId((uintptr_t)targ);
 
             //---<атрибуты>---
             ParamValueList pars;
