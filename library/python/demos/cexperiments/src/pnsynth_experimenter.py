@@ -3,7 +3,7 @@ Experimenter components for synthesizing Petri nets.
 """
 
 import xi.ldopa.eventlog as ld
-#import sys
+#import sysx
 from enum import Enum
 import csv
 import time
@@ -13,8 +13,8 @@ import locale
 #------------------------------------------------------------------------------
 
 class Experimenter:
-    """Performs complex experiments with TS reduction and PN synthesis."""   
-    
+    """Performs complex experiments with TS reduction and PN synthesis."""
+
     #--------------------------------------------------------------------------
     # Constants and enums
     class TsNum(Enum):
@@ -35,8 +35,8 @@ class Experimenter:
             self._open_log()
 
         self._log_prim_attrs = (
-            self._log.get_activities_num(), 
-            self._log.get_traces_num(), 
+            self._log.get_activities_num(),
+            self._log.get_traces_num(),
             self._log.get_events_num()
             )
 
@@ -129,7 +129,7 @@ class Experimenter:
     #--------------------------------------------------------------------------
     def synth_pn(self, which_ts, make_wf, selfloop_pol):
         """Synthesizes a PN for ts1 or ts3."""
-        
+
         if which_ts is Experimenter.TsNum.TS1:
             ts = self._ts1
         elif which_ts is Experimenter.TsNum.TS3:
@@ -174,7 +174,7 @@ class Experimenter:
     @property
     def ts2(self):
         return self._ts2
-    
+
     #--------------------------------------------------------------------------
     @property
     def ts3(self):
@@ -191,7 +191,7 @@ class Experimenter:
 
         if self._fnc == None:
             raise RuntimeError("State function is not defined yet. Can't get max wnd size.")
-        
+
         return self._fnc.max_ws
 
 
@@ -209,7 +209,7 @@ class Experimenter:
     @property
     def red_elapsed(self):
         return self._red_elapsed
-    
+
 
     #--------------------------------------------------------------------------
     @property
@@ -257,7 +257,7 @@ class Experimenter:
 
     # временно сохраненные, чтобы объекты не выпадали из области видимости!
     # todo: вообще-то тут можно всяческие custodian-модификаторы попробовать использовать,
-    # чтобы зафиксировать время жизни по родительским объектам, но лучше с ними 
+    # чтобы зафиксировать время жизни по родительским объектам, но лучше с ними
     # не связываться
     _pool = None
     _pfbuilder = None
@@ -310,7 +310,7 @@ class ExperimentStepper():
         self._xp.reduce_ts(thres, vwsc)
         (ms1, mp1, mg1) = self._xp.calc_metrics(Experimenter.TsNum.TS1)
         (ms3, mp3, mg3) = self._xp.calc_metrics(Experimenter.TsNum.TS3)
-        
+
         # кошмар! дважды синтезировал PN!!!!
         #self._xp.make_sas(Experimenter.TsNum.TS3)
         #self._xp.synth_pn(Experimenter.TsNum.TS3, True, ld.EvLogPNSynth.SelfLoopPolicy.slProcess)
@@ -402,14 +402,14 @@ class ExperimentStepper():
         print("Prepare CSV output: %s" % fn)
         #with self.open_csv(params["csv_fn"]) as csvfile:
         with self.open_csv(fn) as csvfile:
-            
-            print("\nOpen log file and build a prefix tree with UNLIM wnd size")            
+
+            print("\nOpen log file and build a prefix tree with UNLIM wnd size")
             self._xp = Experimenter(params["log_fn"])
-            
+
             # префиксное дерево майним сразу
             self._xp.mine_prefix_tree(ld.PrefixStateFunc.UNLIM_WND_SIZE)
             self._xp.retrive_log_pa()       # основные атрибуты лога
-                        
+
             i = 0
 
             # степпинг по параметрам
@@ -419,8 +419,8 @@ class ExperimentStepper():
                     step_method(thres, vwsc)
                     i = i + 1
                     print("Step %d: (%f, %f)" % (i, thres, vwsc))
-            
-            
+
+
             1 #
         print("Well done!")
 
@@ -443,24 +443,24 @@ class ExperimentStepper():
         wndsz = params["wnd_sz"]
 
         print("Prepare CSV output: %s" % fn)
-        
+
         with self.open_csv(fn) as csvfile:
-            
-            print("\nOpen log file and build a prefix tree with FIX wnd size = %d" % wndsz)            
+
+            print("\nOpen log file and build a prefix tree with FIX wnd size = %d" % wndsz)
             self._xp = Experimenter(params["log_fn"])
-            
+
             # префиксное дерево майним сразу
             self._xp.mine_prefix_tree(ld.PrefixStateFunc.UNLIM_WND_SIZE)
-            
+
             # с фкисрованным окном
             self._xp.mine_prefix_tree_fix_wnd(wndsz)
             self._xp.retrive_log_pa()       # основные атрибуты лога
             (log_an, log_tn, log_en) = self._xp.log_pa  # основные атрибуты лога
-                        
+
             (ms1, mp1, mg1) = self._xp.calc_metrics(Experimenter.TsNum.TS1)
             (ms3, mp3, mg3) = self._xp.calc_metrics(Experimenter.TsNum.TS3)
             st = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-            
+
                     # записываем CSV-строку очередную
             csv_row = [
                 st,
@@ -486,7 +486,7 @@ class ExperimentStepper():
     #--------------------------------------------------------------------------
     def synthpn_by_prefixtree(self, params):
         """Mine the prefix tree and synthesize a PN based on it."""
-        
+
         print("Mine the prefix tree and synthesize a PN based on it.")
         print("Log file: %s" % params["log_fn"])
 
@@ -503,28 +503,28 @@ class ExperimentStepper():
         #wndsz = params["wnd_sz"]
 
         print("Prepare CSV output: %s" % fn)
-        
+
         with self.open_csv(fn) as csvfile:
-            
-            print("\nOpen log file and build a prefix tree with UNLIM wnd size")            
+
+            print("\nOpen log file and build a prefix tree with UNLIM wnd size")
             self._xp = Experimenter(params["log_fn"])
-            
+
             # префиксное дерево майним сразу
-            self._xp.mine_prefix_tree(ld.PrefixStateFunc.UNLIM_WND_SIZE)                             
+            self._xp.mine_prefix_tree(ld.PrefixStateFunc.UNLIM_WND_SIZE)
             self._xp.retrive_log_pa()       # основные атрибуты лога
             (log_an, log_tn, log_en) = self._xp.log_pa  # основные атрибуты лога
             (ms1, mp1, mg1) = self._xp.calc_metrics(Experimenter.TsNum.TS1)
             #(ms3, mp3, mg3) = self._xp.calc_metrics(Experimenter.TsNum.TS3)
-                        
+
             # синтез PN
-            print("\nMake SAS and synth PN")            
+            print("\nMake SAS and synth PN")
             self._xp.make_sas(Experimenter.TsNum.TS1)       # здесь мы чуть испортим префиксное дерево
             self._xp.synth_pn(Experimenter.TsNum.TS1, True, ld.EvLogPNSynth.SelfLoopPolicy.slProcess)
 
             pn = self._xp.pn
 
             st = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-            
+
           # записываем CSV-строку очередную
             csv_row = [
                 st,
@@ -559,9 +559,9 @@ class ExperimentStepper():
         cw = self._csv_writer
 
         # пишем заголовок
-        cw.writerow(["Timestamp", 
+        cw.writerow(["Timestamp",
                      "Log file", "Activities #", "Traces #", "Events #",
-                     "TS1 build time (ms)", 
+                     "TS1 build time (ms)",
                      "TS1 states #", "TS1 trans #",
                      "TS1 simpl", "TS1 prec", "TS1 gener",
                      "threshold", "VWSC",
@@ -592,9 +592,9 @@ class ExperimentStepper():
 
 
     #--------------------------------------------------------------------------
-    
-    
-    # dictionary of params:    
+
+
+    # dictionary of params:
     _params = None              # исходные параметры
     _xp = None                  # экспериментер
     _csv_file = None            # CSV file

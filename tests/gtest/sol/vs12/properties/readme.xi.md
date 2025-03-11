@@ -1,1 +1,0 @@
-Common property sheets for all project. Every project can use its own set of properties, which are declared in the corresponding subdirectory of the project.
