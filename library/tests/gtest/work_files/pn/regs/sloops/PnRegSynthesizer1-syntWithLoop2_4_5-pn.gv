@@ -1,0 +1,28 @@
+digraph G {
+    node [width=0.5];
+xdb09c0 [label="",shape=box]
+xdb0ad0 [label="a",shape=box]
+xdb1028 [label="b",shape=box]
+xdb0dc0 [label="x",shape=box]
+xdb0c60 [label="[s1],[s3],"]
+xdb11e0 [label="[s2],[s3],"]
+xdb0f78 [label="[],[s2],"]
+xdb0c08 [label="[],[s1],"]
+xdb0f20 [label=""]
+xdb1080 [label="(1)"]
+xdb10d8 [label="",shape=box]
+xdb0c60 -> xdb09c0 
+xdb0ad0 -> xdb0c60 
+xdb11e0 -> xdb09c0 
+xdb1028 -> xdb11e0 
+xdb11e0 -> xdb0dc0 
+xdb0dc0 -> xdb11e0 
+xdb0f78 -> xdb0ad0 
+xdb0f78 -> xdb0dc0 
+xdb0dc0 -> xdb0f78 
+xdb0c08 -> xdb1028 
+xdb09c0 -> xdb0f20 
+xdb1080 -> xdb10d8 
+xdb10d8 -> xdb0c08 
+xdb10d8 -> xdb0f78 
+}

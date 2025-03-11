@@ -1,0 +1,12 @@
+digraph G {
+    node [width=0.5];
+xa4c348 [label="[]"]
+xa4c710 [label="[s1]"]
+xa4c608 [label="[s2]"]
+xa4c3a0 [label="[s3]"]
+xa4c348 -> xa4c710 [label="a"]
+xa4c348 -> xa4c608 [label="b"]
+xa4c710 -> xa4c3a0 [label="b"]
+xa4c608 -> xa4c3a0 [label="a"]
+xa4c608 -> xa4c608 [label="x"]
+}

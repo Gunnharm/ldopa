@@ -1,0 +1,46 @@
+digraph G {
+    node [width=0.5];
+ta [label="a",shape=box]
+tb [label="b",shape=box]
+tc [label="c",shape=box]
+td [label="d",shape=box]
+te [label="e",shape=box]
+tf [label="f",shape=box]
+p0 [label="[],   (1)"]
+p2 [label="[s2],[s5],[s6],"]
+p1 [label="[s2],[s6],[s4],"]
+p4 [label="[s7],[s3],[s5],"]
+p3 [label="[s2],[s3],[s5],"]
+p6 [label="[s7],[s3],[s4],"]
+p7 [label="[s7],[s6],[s4],"]
+p5 [label="[s2],[s3],[s4],"]
+p8 [label="[s7],[s5],[s6],"]
+p0 -> ta 
+te -> p0 
+p0 -> tb 
+tf -> p0 
+ta -> p2 
+p2 -> tc 
+tb -> p2 
+ta -> p1 
+p1 -> tc 
+td -> p1 
+p1 -> te 
+tc -> p4 
+p4 -> td 
+tb -> p4 
+p4 -> tf 
+ta -> p3 
+p3 -> td 
+tb -> p3 
+tc -> p6 
+p6 -> te 
+p6 -> tf 
+td -> p7 
+p7 -> te 
+p7 -> tf 
+ta -> p5 
+p5 -> te 
+tb -> p8 
+p8 -> tf 
+}

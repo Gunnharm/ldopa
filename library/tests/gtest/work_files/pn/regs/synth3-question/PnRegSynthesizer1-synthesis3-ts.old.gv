@@ -1,0 +1,18 @@
+digraph G {
+    node [width=0.5];
+xc05cb0 [label="[]"]
+xc06188 [label="[s2]"]
+xc064c8 [label="[s3]"]
+xc06808 [label="[s4]"]
+xc06b48 [label="[s5]"]
+xc06e88 [label="[s6]"]
+xc071c8 [label="[s7]"]
+xc05cb0 -> xc06188 [label="a"]
+xc06188 -> xc064c8 [label="c"]
+xc064c8 -> xc06808 [label="d"]
+xc06808 -> xc05cb0 [label="e"]
+xc05cb0 -> xc06b48 [label="b"]
+xc06b48 -> xc06e88 [label="d"]
+xc06e88 -> xc071c8 [label="c"]
+xc071c8 -> xc05cb0 [label="f"]
+}

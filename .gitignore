@@ -34,3 +34,21 @@
 build
 .cache
 .vscode
+
+# # Test settings
+# library/tests/gtest/src/eventlog/csvlog_test_settings.h
+# library/tests/gtest/src/ts/ts_test_settings.h
+
+# # temp
+# *.gv
+# *.gif
+# *.csv
+# *.sq3
+# *.xlsx
+# *.ps
+# *.pdf
+# *.vsd
+# *.cmd
+# *.example
+# *.zip
+# *.xi.txt
