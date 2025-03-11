@@ -22,7 +22,7 @@
 
 
 // xilib
-#include "xi/attributes/obsolete1/boost_attr.h"     
+#include "xi/attributes/boost_attr.h"     
 
 
 // boost
@@ -74,15 +74,15 @@ TEST_F(BoostAttr_1_Test, BoostVar1)
     using namespace xi::attributes;
 
     int s1 = sizeof(std::string);
-    int s2 = sizeof(Bitset32);
-    int s3 = sizeof(Bitset64);
-    int s3_1 = sizeof(Bitset128);
+    // int s2 = sizeof(Bitset32);
+    // int s3 = sizeof(Bitset64);
+    // int s3_1 = sizeof(Bitset128);
     int s4 = sizeof(IDestructableObject);
     int s5 = sizeof(DestrObjSharedPtr);
     int s6 = sizeof(StringSharedPtr);
     
-    int s7 = sizeof(BaseVarAttribute);
-    int s8 = sizeof(VarAttribute);
+    // int s7 = sizeof(BaseVarAttribute);
+    // int s8 = sizeof(VarAttribute);
     
 
     // теперь руками набустим...
@@ -95,8 +95,8 @@ TEST_F(BoostAttr_1_Test, BoostVar1)
         double,
 
         // bitsets
-        Bitset32,
-        Bitset64,
+        // Bitset32,
+        // Bitset64,
         //Bitset128,
 
         // pointers
@@ -183,7 +183,7 @@ TEST_F(BoostAttr_1_Test, VarAttribute1Types1)
         va1_t = va1.getType();
 
         // const c-str
-        char* ccs = "Const C-str";
+        const char* ccs = "Const C-str";
         va1 = ccs;
         va1_t = va1.getType();          // тут charptr без const получился!
 
@@ -278,7 +278,7 @@ TEST_F(BoostAttr_1_Test, VarAttribute1ToStrVisitor2)
         EXPECT_EQ("Abc", s);
 
         // const c-str
-        char* ccs = "Const C-str";
+        const char* ccs = "Const C-str";
         va1 = ccs;
         //va1_t = va1.getType();          // тут charptr без const получился!
         //s = boost::apply_visitor(v, va1);
@@ -426,8 +426,8 @@ TEST_F(BoostAttr_1_Test, VarAttribute1Equality3)
 
 
     // умные указатели на std::string
-    char* s1 = _strdup("Abc");
-    char* s2 = _strdup("Abc");
+    char* s1 = strdup("Abc");
+    char* s2 = strdup("Abc");
 
     //EXPECT_TRUE(*s1 == *s2);            // объекты равны
     EXPECT_TRUE(strcmp(s1, s2) == 0);
@@ -539,7 +539,7 @@ TEST_F(BoostAttr_1_Test, Types1Inequality1)
 
         // shared_ptr<>
         DestrObjSharedPtr,                          // memory-managed object pointer
-        CStrSharedPtr,                              // c-string
+        // CStrSharedPtr,                              // c-string
         StringSharedPtr                             // std::string
     > BV2;
 
@@ -549,7 +549,7 @@ TEST_F(BoostAttr_1_Test, Types1Inequality1)
 
 
 
-    Bitset64 bs;
+    std::bitset<64> bs;
     bs[0] = true;
     bs[1] = false;
     bs[2] = true;

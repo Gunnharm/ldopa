@@ -12,3 +12,5 @@ add_compile_definitions(
 )
 
 add_subdirectory(src/ts)
+add_subdirectory(src/strutils)
+add_subdirectory(src/core)
