@@ -52,3 +52,5 @@ build
 # *.example
 # *.zip
 # *.xi.txt
+*.gv
+library/tests/gtest/work_files/**/*.gv

@@ -1,8 +1,0 @@
-digraph G {
-    node [width=0.5];
-x1095ca8 [label="[]"]
-x10aad40 [label="[a]",peripheries=2]
-x10aad98 [label="[b]"]
-x1095ca8 -> x10aad40 [label="a/1"]
-x1095ca8 -> x10aad98 [label="b"]
-}
