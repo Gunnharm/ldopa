@@ -49,6 +49,9 @@ public:
     //-----<Types>-----
     typedef eventlog::IEventLog::Attribute Attribute;           ///< EventLog Attribute type.
     typedef BasePetriNet<TVertData, TArcData> Base;             ///< Alias for the base class.
+    using typename Base::PnVertex;
+    using typename Base::Position;
+    using typename Base::Transition;
     typedef std::map<PnVertex, Attribute> VertexAttributeMap;   ///< Vertices-to-Attributes mapping.
 
 public:
@@ -80,7 +83,7 @@ public:
     /** \brief Returns a ptr to a string lable of the goven vertex \a v or null if no label exists. */
     const Attribute* getAttribute(const PnVertex& v) const
     {
-        VertexAttributeMap::const_iterator it = _vertLabels.find(v);
+        typename VertexAttributeMap::const_iterator it = _vertLabels.find(v);
         if (it == _vertLabels.end())
             return nullptr;
 

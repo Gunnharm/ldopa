@@ -90,7 +90,7 @@ struct MapLabeledPetriNetDotVisitor :
             if (v.isTrans(pn))
                 pars.append("shape", "box");
 
-            str << makeUintHexId((unsigned int)v.getVertex()) << " " << makeParamValueStr(pars) << std::endl;
+            str << makeUintHexId((size_t)v.getVertex()) << " " << makeParamValueStr(pars) << std::endl;
         }
 
 
@@ -103,8 +103,8 @@ struct MapLabeledPetriNetDotVisitor :
             PN::PnVertex src = pn.getSrcVert(arc);
             PN::PnVertex targ = pn.getTargVert(arc);
 
-            std::string srcId = makeUintHexId((unsigned int)src.getVertex());
-            std::string targId = makeUintHexId((unsigned int)targ.getVertex());
+            std::string srcId = makeUintHexId((size_t)src.getVertex());
+            std::string targId = makeUintHexId((size_t)targ.getVertex());
 
             //---<атрибуты>---
             ParamValueList pars;
@@ -135,7 +135,7 @@ struct MapLabeledPetriNetDotVisitor :
  *  should be taken into consideration.
  * 
  */
-template <typename PN, typename PNVisitor = DefaultDotVisitor<PN> >
+template <typename PN, typename PNVisitor = graph::DefaultDotVisitor<PN> >
 class BasePetriNetDotWritter : public graph::GenDotWriter<PN, PNVisitor>
 {
 public:
@@ -166,13 +166,13 @@ public:
             throw std::invalid_argument("Can't open dump file for GraphViz");
 
         // заголовок
-        outputHeader(dfile, pn, grLbl);
+        this->outputHeader(dfile, pn, grLbl);
 
         // тело
-        _gv.outputPnBody(dfile, pn, marking);   // в Visitor д.б. метод и такой
+        this->_gv.outputPnBody(dfile, pn, marking);   // в Visitor д.б. метод и такой
 
         // хвост
-        outputTail(dfile, pn);
+        this->outputTail(dfile, pn);
 
         dfile.flush();
     }

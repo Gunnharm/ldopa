@@ -102,7 +102,7 @@ struct EventLogPetriNetDotVisitor :
             if (v.isTrans(pn))
                 pars.append("shape", "box");
 
-            str << makeUintHexId((unsigned int)v.getVertex()) << " " << makeParamValueStr(pars) << std::endl;
+            str << makeUintHexId((size_t)v.getVertex()) << " " << makeParamValueStr(pars) << std::endl;
         }
 
 
@@ -115,8 +115,8 @@ struct EventLogPetriNetDotVisitor :
             PN::PnVertex src = pn.getSrcVert(arc);
             PN::PnVertex targ = pn.getTargVert(arc);
 
-            std::string srcId = makeUintHexId((unsigned int)src.getVertex());
-            std::string targId = makeUintHexId((unsigned int)targ.getVertex());
+            std::string srcId = makeUintHexId((size_t)src.getVertex());
+            std::string targId = makeUintHexId((size_t)targ.getVertex());
 
             //---<атрибуты>---
             ParamValueList pars;

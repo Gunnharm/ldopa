@@ -43,17 +43,21 @@ class PnRegSynthesizer_Tester
 {
 public:
     // additiona typedefs 
-    typedef typename PnRegSynthesizer<TS, PN> Base;
+    using Base = PnRegSynthesizer<TS, PN>;
+    using Options = typename Base::Options;
+    using SplitLabel = typename Base::SplitLabel;
+    using TsTransition = typename Base::TsTransition;
+    using Label = typename Base::Label;
 public:
     // Constructors
     /** \brief Default constructor. */
-    PnRegSynthesizer_Tester(Options opts = 0)
+    PnRegSynthesizer_Tester(Options opts = Options())
         : Base(opts)
     {
     }
 
     /** \brief Initializes the synthesizer with the given transition system \a ts. */
-    PnRegSynthesizer_Tester(TS* ts, Options opts = 0)
+    PnRegSynthesizer_Tester(TS* ts, Options opts = Options())
         : Base(ts, opts)
     {
     }
@@ -61,28 +65,28 @@ public:
     /** \brief Destructor. */
     virtual ~PnRegSynthesizer_Tester()
     {
-        clearPN();
+        this->clearPN();
     }
 public:
 
     // expose a protected methods
 
-    inline void _t_mapTransitions() { mapTransitions();  }
+    inline void _t_mapTransitions() { this->mapTransitions();  }
     
     inline SplitLabel _t_getTransSplitLblInt(const TsTransition& t) const
     {
-        return getTransSplitLblInt(t);
+        return this->getTransSplitLblInt(t);
     }
 
     inline void _t_setLblSplitIndex(const Label& lbl, unsigned int ind)
     {
-        setLblSplitIndex(lbl, ind);
+        this->setLblSplitIndex(lbl, ind);
     }
 
 
     inline void _t_setTrSplitIndex(const TsTransition& t, unsigned int ind)
     {
-        setTrSplitIndex(t, ind);
+        this->setTrSplitIndex(t, ind);
     }
 
 }; // class PnRegSynthesizer_Tester

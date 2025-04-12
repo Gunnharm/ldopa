@@ -79,10 +79,10 @@ public:
     // iterator helpers
 
     /// Returns a begin iterator over the range of keys.
-    inline KeyIterator beginKey() const { return KeyIterator(begin()); }
+    inline KeyIterator beginKey() const { return KeyIterator(this->begin()); }
 
     /// Returns an end iterator over the range of keys.
-    inline KeyIterator endKey() const { return KeyIterator(end()); }
+    inline KeyIterator endKey() const { return KeyIterator(this->end()); }
 
     inline KeyIteratorPair keys() const
     {
@@ -114,7 +114,7 @@ public:
     // find все равно используется find(const key_type& _Keyval)
     inline bool contains(const Key& key) const
     {
-        return (find(key) != end());
+        return (this->find(key) != this->end());
     }
 
     /** \brief Checks whether \a this is not necessarily a strict subset of \a rhv.
@@ -168,12 +168,12 @@ public:
         // "правильное" удаление элементов из множества при итерировании:
         // https://stackoverflow.com/questions/20627458/how-to-remove-elements-from-an-stdset-while-iterating-over-it
         size_t num = 0;         // число удаленных
-        for(Base::iterator it = begin(); it != end(); )
+        for(typename Base::iterator it = this->begin(); it != this->end(); )
         {
             const Key& ri = *it;
             if (r.isStrictSubsetOf(ri))
             {
-                it = erase(it);
+                it = this->erase(it);
                 ++num;
             }                
             else
@@ -196,7 +196,7 @@ public:
         // перебираем все множества в s и те из них, для которых r является подмножеством
         // (т.е. такие, которые надмножества над r), удаляем
         size_t num = 0;         // число удаленных
-        for(Base::iterator it = begin(); it != end(); )
+        for(typename Base::iterator it = this->begin(); it != this->end(); )
         {
             const Key& ri = *it;
             if (r.isSubsetOf(ri))
@@ -232,12 +232,12 @@ public:
 public:
     bool operator==(const XiRefWrDecorator& rhv) const
     {
-        return get() == rhv.get();
+        return this->get() == rhv.get();
     }
 
     bool operator<(const XiRefWrDecorator& rhv) const
     {
-        return get() < rhv.get();
+        return this->get() < rhv.get();
     }
 }; // class XiRefWrDecorator
 
@@ -288,7 +288,6 @@ public:
      *  where the smallest (in term of its cardinality) set is going first.
      */
     struct StateSetSizeComp
-        : public std::binary_function < StateSet, StateSet, bool >
     {	
         /// Functor for comparing.
         bool operator()(const StateSet& lhv, const StateSet& rhv) const
@@ -340,13 +339,13 @@ public:
 
     public:
         /// Returns a const transition label.
-        const Label& label() const { return first/*.get()*/; }
+        const Label& label() const { return this->first/*.get()*/; }
 
         /// Returns a split index.
-        unsigned int splitInd() const { return second; }
+        unsigned int splitInd() const { return this->second; }
 
         /// Sets a new split index.
-        void setSplitInd(unsigned int newInd) { second = newInd; }
+        void setSplitInd(unsigned int newInd) { this->second = newInd; }
 
     }; // class SplitLabel
 
@@ -542,11 +541,11 @@ public:
             TS* ts = _owner->_ts;
 
             // вот туточки прямо перебираем все транзиции исходной TS
-            TS::TransIter tIt, tEnd;
+            typename TS::TransIter tIt, tEnd;
             boost::tie(tIt, tEnd) = ts->getTransitions();
             for (; tIt != tEnd; ++tIt)
             {
-                TsTransition& t = *tIt;
+                const TsTransition& t = *tIt;
                 if (!_owner->isSelfLoop(t))                // пропускаем все непетли
                     continue;
 
@@ -939,7 +938,7 @@ public:
         PnTransition initTrans = _pn->addTransition();
         _pn->addArc(initPos, initTrans);
         
-        for (PnMarking::PosNums::const_iterator kvIt = _initMarking.getMap().begin();
+        for (typename PnMarking::PosNums::const_iterator kvIt = _initMarking.getMap().begin();
             kvIt != _initMarking.getMap().end(); ++kvIt)
         {
             const PnPosition& cur = kvIt->first;
@@ -954,7 +953,7 @@ public:
 
     /** \brief Maps synthsized regions to the resulting Petri net.
      *
-     *  According to the “Saturated PN synthesis” algorithm, p.864 [Cortadella et al, 1998].
+     *  According to the "Saturated PN synthesis" algorithm, p.864 [Cortadella et al, 1998].
      */
     void mapRegsToPn()
     {
@@ -1135,7 +1134,7 @@ public:
 
         isect = *(sset.begin());            // пересечение равно первому множеству, а дальше в цикле    
                                             // первый элемент всегда будет, поэтому сразу инкрементируем!
-        for (SetOfStateSets::iterator it = ++(sset.begin()); it != sset.end(); ++it)
+        for (typename SetOfStateSets::iterator it = ++(sset.begin()); it != sset.end(); ++it)
         {
             StateSet temp;                  // сюда ляжет пересечение
             const StateSet& s1 = *it;       // первое множество
@@ -1287,7 +1286,7 @@ public:
         unsigned int minViolEvNum = (unsigned int)-1;   // число меток, которые нарушают минимальное мн-во
         unsigned int minViolSetSize = (unsigned int)-1; // размер минимального множества с минимальными нарушениями        
 
-        for (SetOfStateSets::iterator it = explored.begin(); it != explored.end(); ++it)
+        for (typename SetOfStateSets::iterator it = explored.begin(); it != explored.end(); ++it)
         {
             SetOfEvents violEvents;                     // метки, нарушающие для текущего множества
             const StateSet& s = *it;                    // текущее множество
@@ -1338,7 +1337,7 @@ public:
 
         // если новая СП
         _ts = ts; 
-        _events.clear();                // множество событий тж другое
+        _ts->_events.clear();                // множество событий тж другое
     }
 
     /// Returns the range of events as a keys of the lbl-transitions collection.
@@ -1466,11 +1465,11 @@ protected:
         _lbl2Trans.clear();
 
         // перебираем дуги
-        TS::TransIter trIt, trEnd;
+        typename TS::TransIter trIt, trEnd;
         boost::tie(trIt, trEnd) = _ts->getTransitions();
         for (; trIt != trEnd; ++trIt)
         {
-            TsTransition& t = *trIt;
+            const TsTransition& t = *trIt;
             if (omitAsSelfLoop(t))          // петли либо исключаем, либо тут исключение
                 continue;
 

@@ -49,23 +49,36 @@ public:
     //-----<Types>-----
     typedef GenPetriNet<TVertData, TArcData> Base;      ///< Alias for the base class.
     typedef GenPetriNetMarking<TVertData, TArcData> Marking; ///< Corresponding marking type.
-    typedef std::map<BaseArc, UInt> ArcWeights;         ///< Mapping Arcs-to-Weights.
+    typedef std::map<typename Base::BaseArc, UInt> ArcWeights;         ///< Mapping Arcs-to-Weights.
+
+    // Добавляем определения типов из базового класса
+    using typename Base::Position;
+    using typename Base::Transition;
+    using typename Base::PTArc;
+    using typename Base::TPArc;
+    using typename Base::BaseArc;
+    using typename Base::ArcType;
+    using typename Base::PnVertex;
+    using typename Base::InPosIter;
+    using typename Base::OutPosIter;
+    using typename Base::InTransIter;
+    using typename Base::OutTransIter;
 
 public:
 #pragma region Interface for checking active transition 
     
     /** \brief Determines whether the transition \a t is enabled in the marking \a m or not. */
-    virtual bool isEnabled(Transition t, const Marking& m)
+    virtual bool isEnabled(typename Base::Transition t, const Marking& m)
     {
-        InPosIter tCur, tEnd;
-        for (boost::tie(tCur, tEnd) = getPreset(t); tCur != tEnd; ++tCur)
+        typename Base::InPosIter tCur, tEnd;
+        for (boost::tie(tCur, tEnd) = this->getPreset(t); tCur != tEnd; ++tCur)
         {
             Position pos = (*tCur).first;       // позиция и...
             PTArc arc = (*tCur).second;         // ...инцидентная дуга
             UInt tokensNum = m(pos);            // число токенов в позиции
 
             // смотрим на тип дуги
-            ArcType at = getArcType(arc);
+            ArcType at = this->getArcType(arc);
             if (at == PnArcBundle_traits_base::atReg)   // >> обычная дуга
             {
                 UInt arcWeight = getArcWeight(arc);     // вес дуги
@@ -118,7 +131,7 @@ public:
     UInt getArcWeight(const BaseArc& arc) const
     {
         // если в мапе нет информации привязки к дуге, вес 1. может ли вес быть 0 или отриц?
-        ArcWeights::const_iterator wIt = _arcWeights.find(arc);
+        typename ArcWeights::const_iterator wIt = _arcWeights.find(arc);
         if (wIt == _arcWeights.end())
             return 1;
 
@@ -161,7 +174,12 @@ class MapLabeledPetriNet : public BasePetriNet < TVertData, TArcData >
 public:
     //-----<Types>-----
     typedef BasePetriNet<TVertData, TArcData> Base;             ///< Alias for the base class.
-    typedef std::map<PnVertex, std::string> VertexStringMap;    ///< Vertices-to-strings mapping.
+    typedef std::map<typename Base::PnVertex, std::string> VertexStringMap;    ///< Vertices-to-strings mapping.
+
+    // Добавляем определения типов из базового класса
+    using typename Base::Position;
+    using typename Base::Transition;
+    using typename Base::PnVertex;
 
 public:
 
@@ -196,7 +214,7 @@ public:
     /** \brief Returns a ptr to a string lable of the goven vertex \a v or null if no label exists. */
     const std::string* getLabel(const PnVertex& v) const
     {
-        VertexStringMap::const_iterator it = _vertLabels.find(v);
+        typename VertexStringMap::const_iterator it = _vertLabels.find(v);
         if (it == _vertLabels.end())
             return nullptr;
 

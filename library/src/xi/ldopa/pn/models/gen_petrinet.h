@@ -62,7 +62,7 @@ struct PnVertBundle_traits {
     struct _PnVertBundle {
     //protected:
         TVertData data;                     ///< Custom data embedded in vertices.
-        unsigned char type : 1;             ///< Vertex type: 0 — pos, 1 — trans.
+        unsigned char type : 1;             ///< Vertex type: 0 — pos, 1 — trans.
         unsigned char misc : 7;             ///< Additional 7 bits (padding to a whole byte), 
                                             ///  which can be used arbitrarily.
     };
@@ -115,7 +115,7 @@ struct PnVertBundle_traits<boost::no_property> {
     struct _PnVertBundle {
     //protected:
         // There are no custom data embedded in vertices at all.
-        unsigned char type : 1;             ///< Vertex type: 0 — pos, 1 — trans.
+        unsigned char type : 1;             ///< Vertex type: 0 — pos, 1 — trans.
         unsigned char misc : 7;             ///< Additional 7 bits (padding to a whole byte), 
                                             ///< which can be used arbitrarily.
     };
@@ -316,6 +316,10 @@ public:
 //==============================================================================
 
 
+template<typename TVertData, typename TArcData, typename TArcIter>
+    struct GenPetriNet_PPSetIter_traits {        
+};
+
 /** \brief Template class for various Petri nets.
  *
  *  Since Petri net is totally based on the underlying graph, one need to distinguish its components.
@@ -336,6 +340,22 @@ public:
 
     //-----<Traits types>-----
 #pragma region Vertice and Arc Traits Types
+
+    /** \brief Alias for a base graph wrapper type. */
+    typedef gr::BoostBidiGraphP < typename BaseGenPetriNet<TVertData, TArcData>::Graph >
+        BaseGraph;
+    
+    using typename BaseGraph::Vertex;
+    using typename BaseGraph::Edge;
+    using typename BaseGraph::VertexIter;
+    using typename BaseGraph::OedgeIter;
+    using typename BaseGraph::IedgeIter;
+    using typename BaseGraph::EdgeIter;
+    using typename BaseGraph::OedgeIterPair;
+    using typename BaseGraph::IedgeIterPair;
+    using typename BaseGraph::EdgeIterPair;
+    using typename BaseGraph::VertexIterPair;
+    using typename BaseGenPetriNet<TVertData, TArcData>::Graph;
 
     /** \brief Type for vertex property ref-argument. */
     typedef typename PnVertBundle_traits<TVertData>::VertBundleArg VertBundleArg;
@@ -440,7 +460,7 @@ public:
         /** \brief Factory method for adding a new Position to the given graph. */
         static Position addPositionTo(GenPetriNet& pn)
         {
-            return Position(addVertex(pn, false));
+            return Position(PnVertex::addVertex(pn, false));
         }
     }; // class Position 
 
@@ -465,7 +485,7 @@ public:
         /** \brief Factory method for adding a new Position to the given graph. */
         static Transition addTransitionTo(GenPetriNet& pn)
         {
-            return Transition(addVertex(pn, true));
+            return Transition(PnVertex::addVertex(pn, true));
         }
     }; // class Transition
 
@@ -652,7 +672,7 @@ public:
         PosIterFilter(const GenPetriNet* pn) : BaseIterFilter(pn) {}
         bool operator()(Vertex v) 
         {
-            return !(GenPetriNet::isTransition(pn->getGraph()[v]));
+            return !(GenPetriNet::isTransition(BaseIterFilter::pn->getGraph()[v]));
         }
     };
 
@@ -661,7 +681,7 @@ public:
         TransIterFilter(const GenPetriNet* pn) : BaseIterFilter(pn) {}
         bool operator()(Vertex v)
         {
-            return (GenPetriNet::isTransition(pn->getGraph()[v]));
+            return (GenPetriNet::isTransition(BaseIterFilter::pn->getGraph()[v]));
         }
     };
 
@@ -766,78 +786,29 @@ public:
 
     // possible specifications of GenArcIter
 
-    typedef GenArcIter<PTArc, OedgeIter> PoTArcIter;            ///< PoT-iterator type for getOutArcs(Pos) method.
-    typedef std::pair<PoTArcIter, PoTArcIter> PoTArcIterPair;   ///< Pair of PoT-iterators.
+    using PoTArcIter = GenArcIter<PTArc, OedgeIter>;            ///< PoT-iterator type for getOutArcs(Pos) method.
+    using PoTArcIterPair = std::pair<PoTArcIter, PoTArcIter>;   ///< Pair of PoT-iterators.
 
-    typedef GenArcIter<PTArc, IedgeIter> PTiArcIter;            ///< PTi-iterator type for getInArcs(Trans) method.
-    typedef std::pair<PTiArcIter, PTiArcIter> PTiArcIterPair;   ///< Pair of PTi-iterators.
+    using PTiArcIter = GenArcIter<PTArc, IedgeIter>;            ///< PTi-iterator type for getInArcs(Trans) method.
+    using PTiArcIterPair = std::pair<PTiArcIter, PTiArcIter>;   ///< Pair of PTi-iterators.
 
-    typedef GenArcIter<TPArc, OedgeIter> ToPArcIter;            ///< ToP-iterator type for getOutArcs(Trans) method.
-    typedef std::pair<ToPArcIter, ToPArcIter> ToPArcIterPair;   ///< Pair of ToP-iterators.
+    using ToPArcIter = GenArcIter<TPArc, OedgeIter>;            ///< ToP-iterator type for getOutArcs(Trans) method.
+    using ToPArcIterPair = std::pair<ToPArcIter, ToPArcIter>;   ///< Pair of ToP-iterators.
 
-    typedef GenArcIter<TPArc, IedgeIter> TPiArcIter;            ///< TPi-iterator type for getInArcs(Pos) method.
-    typedef std::pair<TPiArcIter, TPiArcIter> TPiArcIterPair;   ///< Pair of TPi-iterators.
+    using TPiArcIter = GenArcIter<TPArc, IedgeIter>;            ///< TPi-iterator type for getInArcs(Pos) method.
+    using TPiArcIterPair = std::pair<TPiArcIter, TPiArcIter>;   ///< Pair of TPi-iterators.
 
 
     // добавочка от 21.07.2018: нужны итераторы для общих дуг, может быть
     // можно этот адаптер использовать?
-    typedef GenArcIter<BaseArc, EdgeIter> BaseArcIter;          ///< Base-arc iterator type for getArcs() method.
-    typedef std::pair<BaseArcIter, BaseArcIter> BaseArcIterPair;///< Pair of Base-arc iterators.
+    using BaseArcIter = GenArcIter<BaseArc, EdgeIter>;          ///< Base-arc iterator type for getArcs() method.
+    using BaseArcIterPair = std::pair<BaseArcIter, BaseArcIter>;///< Pair of Base-arc iterators.
 
     //===============================================================================
 
     // traits base type for PPSetIter class
     template<typename TArcIter>
-    struct PPSetIter_traits {        
-    };
-
-
-    // PTiArcIter - Входная PT-дуга для транзиции (PTi). Итератор возвращает для такой дуги ее source — пред. позицию для данной транзиции.
-    template<>
-    struct PPSetIter_traits < PTiArcIter > {
-        typedef PTArc       TArc;               // тип дуги — PT
-        typedef Position    TVertex;            // тип вершин (возвращаемый таким итератором) — позиция
-        //static TVertex getVertex(const GenPetriNet* pn, TArc arc)  // можно так, но хуже читается
-        static Position getVertex(const GenPetriNet* pn, PTArc arc)
-        {
-            return pn->getSrcPos(arc);
-        }
-    };
-
-    // ToPArcIter - Выходная TP-дуга для транзиции (ToP). Итератор возвращает для такой дуги ее target след. позицию для данной транзиции.
-    template<>
-    struct PPSetIter_traits < ToPArcIter > {
-        typedef TPArc       TArc;               // тип дуги — TP
-        typedef Position    TVertex;            // тип вершин (возвращаемый таким итератором) — позиция
-        static Position getVertex(const GenPetriNet* pn, TPArc arc)
-        {
-            return pn->getTargPos(arc);
-        }
-    };
-    
-    // TPiArcIter - Входная TP-дуга для позиции (TPi). Итератор возвращает для такой дуги ее source — пред. транзицию для данной позиции.
-    template<>
-    struct PPSetIter_traits < TPiArcIter > {
-        typedef TPArc       TArc;               // тип дуги — PT
-        typedef Transition  TVertex;            // тип вершин (возвращаемый таким итератором) — транзиция
-        static Transition getVertex(const GenPetriNet* pn, TPArc arc)
-        {
-            return pn->getSrcTrans(arc);
-        }
-    };
-
-
-    // PoTArcIter - Выходная PT-дуга для позиции (PoT). Итератор возвращает для такой дуги ее target след. транзицию для данной позиции.
-    template<>
-    struct PPSetIter_traits < PoTArcIter > {
-        typedef PTArc       TArc;               // тип дуги — PT
-        typedef Transition    TVertex;            // тип вершин (возвращаемый таким итератором) — позиция
-        static Transition getVertex(const GenPetriNet* pn, PTArc arc)
-        {
-            return pn->getTargTrans(arc);
-        }
-    };
-    
+    using PPSetIter_traits = GenPetriNet_PPSetIter_traits<TVertData, TArcData, TArcIter>;
 
     /** \brief Class for iterating input/output positions/transition through an 
      *  arc iterator. 
@@ -939,30 +910,26 @@ public:
 
 
     // итератор входных позиций для данной транзиции
-    typedef typename PPSetIter<PTiArcIter> InPosIter;
+    typedef PPSetIter<PTiArcIter> InPosIter;
     typedef std::pair<InPosIter, InPosIter> InPosIterPair;
 
     // итератор выходных позиций для данной транзиции
-    typedef typename PPSetIter<ToPArcIter> OutPosIter;
+    typedef PPSetIter<ToPArcIter> OutPosIter;
     typedef std::pair<OutPosIter, OutPosIter> OutPosIterPair;
 
     // итератор входных транзиций для данной позиции
-    typedef typename PPSetIter<TPiArcIter> InTransIter;
+    typedef PPSetIter<TPiArcIter> InTransIter;
     typedef std::pair<InTransIter, InTransIter> InTransIterPair;
 
     // итератор выходных транзиций для данной позиции
-    typedef typename PPSetIter<PoTArcIter> OutTransIter;
+    typedef PPSetIter<PoTArcIter> OutTransIter;
     typedef std::pair<OutTransIter, OutTransIter> OutTransIterPair;
 
 #pragma endregion                 // Custom Iterators
 
-    /** \brief Alias for a base graph wrapper type. */
-    typedef gr::BoostBidiGraphP < typename BaseGenPetriNet<TVertData, TArcData>::Graph >
-        BaseGraph;               
-
-    typedef typename OedgeIter OArcIter;        ///< Type alias for Output Arc Iterator.
-    typedef typename IedgeIter IArcIter;        ///< Type alias for Input Arc Iterator.
-    typedef typename EdgeIter ArcIter;          ///< Type alias for Iterator of Arcs of both directions.
+    typedef typename BaseGraph::OedgeIter OArcIter;        ///< Type alias for Output Arc Iterator.
+    typedef typename BaseGraph::IedgeIter IArcIter;        ///< Type alias for Input Arc Iterator.
+    typedef typename BaseGraph::EdgeIter ArcIter;          ///< Type alias for Iterator of Arcs of both directions.
 
     /** \brief ADDED 21/07/2018: custom iter pair for specific PnVertex. */
     typedef std::pair<PnVertIter, PnVertIter> PnVertIterPair;
@@ -1404,9 +1371,9 @@ public:
     //typedef unsigned int UInt;                          ///< Alias for unsigned int.
 
     //typedef typename GenPetriNet<TVertData, TArcData>::Uint UInt; ///< Alias for unsigned int.
-    typedef typename GenPetriNet<TVertData, TArcData> PN;    ///< Corresponding Petrinet type.
-    typedef typename PN::Position  Position;               ///< Alias for PN position type.
-    typedef std::map<Position, UInt> PosNums;        ///< Mapping "position-to-int-numbers".
+    typedef GenPetriNet<TVertData, TArcData> PN;    ///< Corresponding Petrinet type.
+    typedef typename PN::Position Position;          ///< Alias for PN position type.
+    typedef std::map<Position, UInt> PosNums;       ///< Mapping "position-to-int-numbers".
 
     /** \brief Operator for checking a marking in the given position \a pos. 
      * 
@@ -1414,7 +1381,7 @@ public:
      */
     UInt operator()(Position pos) const
     {
-        PosNums::const_iterator it = _marking.find(pos);
+        typename PosNums::const_iterator it = _marking.find(pos);
         if (it == _marking.end())
             return 0;
 
@@ -1452,7 +1419,51 @@ protected:
     PosNums _marking;   
 }; // class GenPetriNetMarking
 
+// ToPArcIter - Выходная TP-дуга для транзиции (ToP). Итератор возвращает для такой дуги ее target след. позицию для данной транзиции.
+template<typename TVertData, typename TArcData>
+struct GenPetriNet_PPSetIter_traits <TVertData, TArcData, typename GenPetriNet<TVertData, TArcData>::ToPArcIter > {
+    typedef typename GenPetriNet<TVertData, TArcData>::TPArc       TArc;               // тип дуги — TP
+    typedef typename GenPetriNet<TVertData, TArcData>::Position    TVertex;            // тип вершин (возвращаемый таким итератором) — позиция
+    static TVertex getVertex(const GenPetriNet<TVertData, TArcData>* pn, TArc arc)
+    {
+        return pn->getTargPos(arc);
+    }
+};
 
+// TPiArcIter - Входная TP-дуга для позиции (TPi). Итератор возвращает для такой дуги ее source — пред. транзицию для данной позиции.
+template<typename TVertData, typename TArcData>
+struct GenPetriNet_PPSetIter_traits <TVertData, TArcData, typename GenPetriNet<TVertData, TArcData>::TPiArcIter > {
+    typedef typename GenPetriNet<TVertData, TArcData>::TPArc       TArc;               // тип дуги — PT
+    typedef typename GenPetriNet<TVertData, TArcData>::Transition  TVertex;            // тип вершин (возвращаемый таким итератором) — транзиция
+    static TVertex getVertex(const GenPetriNet<TVertData, TArcData>* pn, TArc arc)
+    {
+        return pn->getSrcTrans(arc);
+    }
+};
+
+
+// PoTArcIter - Выходная PT-дуга для позиции (PoT). Итератор возвращает для такой дуги ее target след. транзицию для данной позиции.
+template<typename TVertData, typename TArcData>
+struct GenPetriNet_PPSetIter_traits <TVertData, TArcData, typename GenPetriNet<TVertData, TArcData>::PoTArcIter > {
+    typedef typename GenPetriNet<TVertData, TArcData>::PTArc       TArc;               // тип дуги — PT
+    typedef typename GenPetriNet<TVertData, TArcData>::Transition    TVertex;            // тип вершин (возвращаемый таким итератором) — позиция
+    static TVertex getVertex(const GenPetriNet<TVertData, TArcData>* pn, TArc arc)
+    {
+        return pn->getTargTrans(arc);
+    }
+};
+
+// PTiArcIter - Входная PT-дуга для транзиции (PTi). Итератор возвращает для такой дуги ее source — пред. позицию для данной транзиции.
+template<typename TVertData, typename TArcData>
+struct GenPetriNet_PPSetIter_traits <TVertData, TArcData, typename GenPetriNet<TVertData, TArcData>::PTiArcIter > {
+    typedef typename GenPetriNet<TVertData, TArcData>::PTArc       TArc;               // тип дуги — PT
+    typedef typename GenPetriNet<TVertData, TArcData>::Position    TVertex;            // тип вершин (возвращаемый таким итератором) — позиция
+    //static TVertex getVertex(const GenPetriNet* pn, TArc arc)  // можно так, но хуже читается
+    static TVertex getVertex(const GenPetriNet<TVertData, TArcData>* pn, TArc arc)
+    {
+        return pn->getSrcPos(arc);
+    }
+};
 
 }}} // namespace xi { namespace ldopa { namespace pn {
 
