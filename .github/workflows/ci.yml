@@ -15,13 +15,20 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake g++ libboost-all-dev libsqlite3-dev
+        sudo apt-get install -y cmake g++ libboost-all-dev libsqlite3-dev libgtest-dev
+        
+    - name: Build and install GTest
+      run: |
+        cd /usr/src/gtest
+        sudo cmake CMakeLists.txt
+        sudo make
+        sudo cp lib/*.a /usr/lib
         
     - name: Configure CMake
       run: |
         mkdir -p build
         cd build
-        cmake ..
+        cmake -DCMAKE_POLICY_DEFAULT_CMP0167=NEW ..
         
     - name: Build
       run: |
@@ -40,9 +47,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        choco install cmake
-        choco install boost-msvc-14.3
-        choco install sqlite
+        choco install cmake boost-msvc-14.3 sqlite -y
         
     - name: Configure CMake
       run: |
