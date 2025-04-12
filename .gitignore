@@ -54,3 +54,4 @@ build
 # *.xi.txt
 *.gv
 library/tests/gtest/work_files/**/*.gv
+compile_commands.json
