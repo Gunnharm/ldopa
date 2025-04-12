@@ -5,6 +5,9 @@ project(ldopa)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Включаем CTest
+include(CTest)
+enable_testing()
 
 find_package(Boost 1.60 REQUIRED)
 

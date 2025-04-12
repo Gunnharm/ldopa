@@ -7,4 +7,4 @@ add_executable(XilibStrutilsTests
 target_link_libraries(XilibStrutilsTests GTest::GTest GTest::Main)
 target_link_libraries(XilibStrutilsTests xilib)
 
-add_test(NAME XilibStrutilsTests COMMAND ./library/tests/gtest/src/strutils/XilibStrutilsTests)
+add_test(NAME XilibStrutilsTests COMMAND XilibStrutilsTests)

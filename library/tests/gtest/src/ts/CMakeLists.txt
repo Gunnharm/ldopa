@@ -11,4 +11,4 @@ add_executable(LdopaLibTSTests
 target_link_libraries(LdopaLibTSTests GTest::GTest GTest::Main)
 target_link_libraries(LdopaLibTSTests ldopa-lib)
 
-add_test(NAME LdopaLibTSTests COMMAND ./library/tests/gtest/src/ts/LdopaLibTSTests)
+add_test(NAME LdopaLibTSTests COMMAND LdopaLibTSTests)

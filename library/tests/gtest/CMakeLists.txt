@@ -2,7 +2,6 @@ find_package(GTest REQUIRED)
 
 include_directories(../../src)
 
-enable_testing()
 include_directories(src)
 
 add_compile_definitions(

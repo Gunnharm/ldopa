@@ -8,4 +8,4 @@ add_executable(XilibCoreTests
 target_link_libraries(XilibCoreTests GTest::GTest GTest::Main)
 target_link_libraries(XilibCoreTests xilib)
 
-add_test(NAME XilibCoreTests COMMAND ./library/tests/gtest/src/core/XilibCoreTests)
+add_test(NAME XilibCoreTests COMMAND XilibCoreTests)
