@@ -35,7 +35,7 @@
 #include "xi/ldopa/pn/algos/regions/pn_synthesis.h"
 #include "xi/ldopa/pn/algos/grviz/evlog_ptnets_dotwriter.h"     // записыватель в DOT для PN
 
-#include "complex_settings.h"
+// #include "complex_settings.h"
 
 
 // Constants

@@ -15,3 +15,8 @@ add_subdirectory(src/ts)
 add_subdirectory(src/pn)
 add_subdirectory(src/strutils)
 add_subdirectory(src/core)
+add_subdirectory(src/graphs)
+add_subdirectory(src/eventlog)
+
+# TODO: add performance tests
+# add_subdirectory(src/performance)

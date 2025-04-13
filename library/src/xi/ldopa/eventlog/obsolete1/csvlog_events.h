@@ -46,7 +46,7 @@ public:
 public:
 
     /** \brief Local variant for getOwnerTrace() */
-    ITrace* SimpleCSVLogEvent::getOwnerTraceLocal() { return _ownerTr; }
+    ITrace* getOwnerTraceLocal() { return _ownerTr; }
 protected:
     SimpleCSVLogEvent(const SimpleCSVLogEvent&);                 // Prevent copy-construction
     SimpleCSVLogEvent& operator=(const SimpleCSVLogEvent&);      // Prevent assignment

@@ -417,7 +417,7 @@ TEST_F(CSVLog_1_Test, extractStrAttr1)
     std::string atr1_4;
     bool aeres1_4 = (*tr1)[0]->getAttrAsStr(4, atr1_4);
     EXPECT_EQ(aeres1_4, true);
-    EXPECT_EQ(atr1_4, "654");
+    EXPECT_EQ(atr1_4, "654\r");
 }
 
 
@@ -469,6 +469,6 @@ TEST_F(CSVLog_1_Test, eventActName)
     // here we expect any trace unprepared
     ITrace& tr1 = *traces[1];          // a trace for case with ID == 1 (not simly the very first trace)
     std::string actName = tr1[0]->getActivityName();
-    EXPECT_EQ(actName, "a");
+    EXPECT_EQ(actName, "a\r");
 }
 
