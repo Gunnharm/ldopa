@@ -1,5 +1,5 @@
 add_library(ldopa-lib-module-pn OBJECT
-    # algos/generate/alpha/alpha_miner.cpp
+    algos/generate/alpha/alpha_miner.cpp
     algos/generate/alpha/maximal_set_constructor.cpp
 )
 

@@ -1,289 +1,265 @@
 #include "alpha_miner.h"
 #include "xi/ldopa/pn/models/evlog_ptnets.h"
 
+#include <boost/bimap.hpp>
+#include <iostream>
+
 namespace xi { namespace ldopa { namespace pn { namespace alpha {
+namespace {
+    enum class ActivitiesRelationship {
+        CAUSAL_FORWARD,
+        CAUSAL_BACKWARD,
+        PARALLEL,
+        CHOICE
+    };
 
-AlphaMiner::AlphaMiner() 
-    : _log(nullptr)
-    , _pn(nullptr)
-{
-}
-
-AlphaMiner::~AlphaMiner() {
-    // В mine мы возвращаем PetriNet во владение вызывающему коду
-    // Здесь он может остаться если во время исполнения произошел exception
-    if (_pn) {
-        delete _pn;
-    }
-}
-
-EventLogPetriNet<>* AlphaMiner::mine(IEventLog* log) {
-    _log = log;
-    if (!validateInput()) {
-        return nullptr;
+    template <size_t N>
+    bool is_subset(const std::bitset<N>& subset, const std::bitset<N>& set) {
+        return (subset & set) == subset;
     }
 
-    extractActivities();
-    buildDirectSuccession();
-    buildCausalDependency();
-    buildParallelRelation();
-    findMaximalSets();
-    constructPetriNet();
+    template <std::size_t N>
+    class BitSetIterator
+    {
+    public:
+        // Конструктор принимает ссылку на std::bitset
+        explicit BitSetIterator(const std::bitset<N>& bs) : bitset_(bs) {}
 
-    EventLogPetriNet<>* result = _pn;
-    _pn = nullptr;
-    return result;
+        // Вложенный класс-итератор
+        class iterator
+        {
+        public:
+            // Конструктор итератора
+            iterator(const std::bitset<N>* bs, std::size_t pos)
+                : bitsetPtr_(bs), pos_(pos) {}
+
+            // Возвращает текущую позицию установленного бита
+            std::size_t operator*() const
+            {
+                return pos_;
+            }
+
+            // Переход к следующему установленному биту
+            iterator& operator++()
+            {
+                // Ищем следующий установленный бит
+                do {
+                    ++pos_;
+                } while (pos_ < N && !bitsetPtr_->test(pos_));
+                return *this;
+            }
+
+            // Сравнение на неравенство для окончания итерации
+            bool operator!=(const iterator& other) const
+            {
+                // Проверяем, одинаковы ли позиции и ссылаются ли они на один и тот же битсет
+                return pos_ != other.pos_ || bitsetPtr_ != other.bitsetPtr_;
+            }
+
+        private:
+            const std::bitset<N>* bitsetPtr_;
+            std::size_t pos_;
+        };
+
+        // Метод для получения итератора на первый установленный бит
+        iterator begin() const
+        {
+            // Ищем индекс первого установленного бита
+            std::size_t firstSet = 0;
+            while (firstSet < N && !bitset_.test(firstSet)) {
+                ++firstSet;
+            }
+            return iterator(&bitset_, firstSet);
+        }
+
+        // Метод для получения итератора на конец (условно за границей)
+        iterator end() const
+        {
+            return iterator(&bitset_, N);
+        }
+
+    private:
+        const std::bitset<N>& bitset_;
+    };
 }
 
-bool AlphaMiner::validateInput() {
-    if (!_log) {
-        return false;
-    }
-    
-    // Проверяем, что есть хотя бы один трейс
-    IEventTrace* trace = _log->getTrace(0);
-    if (!trace) {
-        return false;
-    }
-    return true;
-}
+AlphaMiner::PN* AlphaMiner::mine(IEventLog& log) {
+    // 1. Extract activities
+    using ActivityToIndex = boost::bimap<Attribute, size_t>;
+    ActivityToIndex activity_to_index;
 
-void AlphaMiner::extractActivities() {
-    _activities.clear();
-    
-    // Получаем ID атрибута активности
-    std::string actAttrId = _log->getEvActAttrId();
-    
-    for (int i = 0; ; ++i) {
-        IEventTrace* trace = _log->getTrace(i);
-        if (!trace) break;
-        
-        for (int j = 0; j < trace->getSize(); ++j) {
+    size_t trace_count = log.getTracesNum();
+    std::vector<std::vector<size_t>> boiled_down_log(trace_count);
+    std::string act_attr_id = log.getEvActAttrId();
+    assert(!act_attr_id.empty());
+    const char* act_attr_id_cstr = act_attr_id.c_str();
+    for (size_t i = 0; i < trace_count; ++i) {
+        IEventTrace* trace = log.getTrace(i);
+        assert(trace);
+        size_t events_count = trace->getSize();
+        boiled_down_log[i].reserve(events_count);
+        for (size_t j = 0; j < events_count; ++j) {
             IEvent* event = trace->getEvent(j);
-            if (!event) continue;
-            
+            assert(event);
             Attribute attr;
-            if (event->getAttr(actAttrId.c_str(), attr)) {
-                _activities.insert(attr);
+            bool found_activity = event->getAttr(act_attr_id_cstr, attr);
+            assert(found_activity);
+            if (activity_to_index.left.find(attr) == activity_to_index.left.end()) {
+                activity_to_index.insert(ActivityToIndex::value_type(attr, activity_to_index.size()));
             }
+            boiled_down_log[i].push_back(activity_to_index.left.at(attr));
         }
     }
-}
-
-void AlphaMiner::buildDirectSuccession() {
-    _directSuccession = DirectSuccessionRelations<Attribute>();
-    
-    // Получаем ID атрибута активности
-    std::string actAttrId = _log->getEvActAttrId();
-    
-    for (int i = 0; i < _log->getTracesNum(); ++i) {
-        IEventTrace* trace = _log->getTrace(i);
-        if (!trace) continue;
-        
-        for (int j = 0; j < trace->getSize() - 1; ++j) {
-            IEvent* current = trace->getEvent(j);
-            IEvent* next = trace->getEvent(j + 1);
-            if (!current || !next) continue;
-            
-            Attribute currentAttr, nextAttr;
-            if (current->getAttr(actAttrId.c_str(), currentAttr) && 
-                next->getAttr(actAttrId.c_str(), nextAttr)) {
-                _directSuccession.add(currentAttr, nextAttr);
-            }
-        }
+    assert(activity_to_index.size() == log.getActivitiesNum());
+    const size_t activities_count = activity_to_index.size();
+    assert(activities_count > 0);
+    if (activities_count > MAX_ACTIVITIES) {
+        throw LdopaException("Too many activities");
     }
-}
 
-void AlphaMiner::buildCausalDependency() {
-    _causalDependency = CausalDependencyRelations<Attribute>();
-    
-    for (const auto& a : _activities) {
-        for (const auto& b : _activities) {
-            if (_directSuccession.contains(a, b) && !_directSuccession.contains(b, a)) {
-                _causalDependency.add(a, b);
-            }
-        }
+    // 2. Find initial and final activities
+    std::set<size_t> initial_activities;
+    std::set<size_t> final_activities;
+    for (const auto& trace : boiled_down_log) {
+        assert(!trace.empty());
+        initial_activities.insert(trace.front());
+        final_activities.insert(trace.back());
     }
-}
 
-void AlphaMiner::buildParallelRelation() {
-    _parallel = ParallelRelations<Attribute>();
-    
-    for (const auto& a : _activities) {
-        for (const auto& b : _activities) {
-            if (_directSuccession.contains(a, b) && _directSuccession.contains(b, a)) {
-                _parallel.add(a, b);
-            }
-        }
-    }
-}
-
-void AlphaMiner::findMaximalSets() {
-    _maximalSets.clear();
-
-    // Находим все возможные пары множеств входных и выходных активностей
-    std::vector<std::set<Attribute>> inputSets;
-    std::vector<std::set<Attribute>> outputSets;
-
-    // Генерируем все возможные подмножества входных активностей
-    for (const auto& a : _activities) {
-        std::set<Attribute> inputSet = {a};
-        inputSets.push_back(inputSet);
-        
-        // Добавляем все активности, которые могут быть в одном входном множестве
-        for (const auto& b : _activities) {
-            if (a != b && _causalDependency.contains(a, b)) {
-                inputSet.insert(b);
-            }
-        }
-        if (inputSet.size() > 1) {
-            inputSets.push_back(inputSet);
+    // 3. Build direct succession matrix
+    std::vector<std::vector<bool>> direct_succession_matrix(activities_count, std::vector<bool>(activities_count, false));
+    for (const auto& trace_activities : boiled_down_log) {
+        for (size_t i = 0; i < trace_activities.size() - 1; ++i) {
+            auto current_activity = trace_activities[i];
+            auto next_activity = trace_activities[i + 1];
+            direct_succession_matrix[current_activity][next_activity] = true;
         }
     }
 
-    // Генерируем все возможные подмножества выходных активностей
-    for (const auto& a : _activities) {
-        std::set<Attribute> outputSet = {a};
-        outputSets.push_back(outputSet);
-        
-        // Добавляем все активности, которые могут быть в одном выходном множестве
-        for (const auto& b : _activities) {
-            if (a != b && _causalDependency.contains(b, a)) {
-                outputSet.insert(b);
+    // 4. Build footprint matrix
+    std::vector<std::vector<ActivitiesRelationship>> footprint_matrix(activities_count, std::vector<ActivitiesRelationship>(activities_count, ActivitiesRelationship::CHOICE));
+    for (size_t i = 0; i < activities_count; ++i) {
+        for (size_t j = 0; j < activities_count; ++j) {
+            if (i == j) {
+                footprint_matrix[i][j] = ActivitiesRelationship::CHOICE;
+                continue;
             }
-        }
-        if (outputSet.size() > 1) {
-            outputSets.push_back(outputSet);
+            bool forward = direct_succession_matrix[i][j];
+            bool backward = direct_succession_matrix[j][i];
+            if (forward && backward) {
+                footprint_matrix[i][j] = ActivitiesRelationship::PARALLEL;
+            } else if (!forward && !backward) {
+                footprint_matrix[i][j] = ActivitiesRelationship::CHOICE;
+            } else if (forward) {
+                footprint_matrix[i][j] = ActivitiesRelationship::CAUSAL_FORWARD;
+            } else {
+                footprint_matrix[i][j] = ActivitiesRelationship::CAUSAL_BACKWARD;
+            }
         }
     }
 
-    // Находим максимальные множества
-    for (const auto& inputSet : inputSets) {
-        for (const auto& outputSet : outputSets) {
-            bool isValid = true;
-
-            // Проверяем, что все активности из входного множества имеют причинно-следственную связь
-            // со всеми активностями из выходного множества
-            for (const auto& a : inputSet) {
-                for (const auto& b : outputSet) {
-                    if (!_causalDependency.contains(a, b)) {
-                        isValid = false;
-                        break;
+    // 4. Build X
+    std::vector<std::pair<std::bitset<MAX_ACTIVITIES>, std::bitset<MAX_ACTIVITIES>>> X;
+    const auto check_mask_choice = [&](const std::bitset<MAX_ACTIVITIES>& mask) {
+        for (size_t i = 0; i < activities_count; ++i) {
+            if (!mask.test(i)) {
+                continue;
+            }
+            for (size_t j = 0; j < activities_count; ++j) {
+                if (!mask.test(j)) {
+                    continue;
+                }
+                if (footprint_matrix[i][j] != ActivitiesRelationship::CHOICE) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
+    for (size_t mask_left = 1; mask_left < (1ull << activities_count); ++mask_left) {
+        std::bitset<MAX_ACTIVITIES> current_mask_left(mask_left);
+        if (!check_mask_choice(current_mask_left)) {
+            continue;
+        }
+        for (size_t mask_right = 1; mask_right < (1ull << activities_count); ++mask_right) {
+            std::bitset<MAX_ACTIVITIES> current_mask_right(mask_right);
+            if (!check_mask_choice(current_mask_right)) {
+                continue;
+            }
+            bool is_correct = true;
+            for (size_t i = 0; i < activities_count && is_correct; ++i) {
+                if (!current_mask_left.test(i)) {
+                    continue;
+                }
+                for (size_t j = 0; j < activities_count && is_correct; ++j) {
+                    if (!current_mask_right.test(j)) {
+                        continue;
+                    }
+                    if (footprint_matrix[i][j] != ActivitiesRelationship::CAUSAL_FORWARD) {
+                        is_correct = false;
                     }
                 }
-                if (!isValid) break;
             }
-
-            // Проверяем, что нет параллельных отношений между активностями внутри множеств
-            for (const auto& a : inputSet) {
-                for (const auto& b : inputSet) {
-                    if (a != b && _parallel.contains(a, b)) {
-                        isValid = false;
-                        break;
-                    }
-                }
-                if (!isValid) break;
-            }
-
-            for (const auto& a : outputSet) {
-                for (const auto& b : outputSet) {
-                    if (a != b && _parallel.contains(a, b)) {
-                        isValid = false;
-                        break;
-                    }
-                }
-                if (!isValid) break;
-            }
-
-            if (isValid) {
-                // Проверяем, что это множество не является подмножеством уже существующего
-                bool isMaximal = true;
-                for (const auto& existingSet : _maximalSets) {
-                    if (std::includes(existingSet.input.begin(), existingSet.input.end(), 
-                                    inputSet.begin(), inputSet.end()) &&
-                        std::includes(existingSet.output.begin(), existingSet.output.end(), 
-                                    outputSet.begin(), outputSet.end())) {
-                        isMaximal = false;
-                        break;
-                    }
-                }
-
-                if (isMaximal) {
-                    _maximalSets.push_back({inputSet, outputSet});
-                }
+            if (is_correct) {
+                X.push_back(std::make_pair(current_mask_left, current_mask_right));
             }
         }
     }
-}
 
-void AlphaMiner::constructPetriNet() {
-    // Создаем новую сеть Петри
-    _pn = new EventLogPetriNet<>();
-
-    
-
-    // Создаем начальное и конечное места
-    auto startPlace = _pn->addPosition("start");
-    auto endPlace = _pn->addPosition("end");
-
-    // Создаем переходы для каждой активности
-    std::map<Attribute, typename EventLogPetriNet<>::Transition> activityTransitions;
-    for (const auto& activity : _activities) {
-        auto transition = _pn->addTransition(activity);
-        activityTransitions[activity] = transition;
-    }
-
-    // Создаем места для максимальных множеств
-    std::vector<typename EventLogPetriNet<>::Position> maximalSetPlaces;
-    for (size_t i = 0; i < _maximalSets.size(); ++i) {
-        std::string placeName = "p" + std::to_string(i);
-        auto place = _pn->addPosition(placeName);
-        maximalSetPlaces.push_back(place);
-    }
-
-    // Соединяем начальное место с переходами, у которых нет входных активностей
-    for (const auto& activity : _activities) {
-        bool hasInput = false;
-        for (const auto& set : _maximalSets) {
-            if (set.output.find(activity) != set.output.end()) {
-                hasInput = true;
+    // 5. Build Y
+    std::vector<std::pair<std::bitset<MAX_ACTIVITIES>, std::bitset<MAX_ACTIVITIES>>> Y;
+    for (const auto& x_to_add : X) {
+        bool is_correct = true;
+        for (const auto& x_check : X) {
+            if (x_to_add == x_check) {
+                continue;
+            }
+            if (is_subset(x_to_add.first, x_check.first) && is_subset(x_to_add.second, x_check.second)) {
+                is_correct = false;
                 break;
             }
         }
-        if (!hasInput) {
-            _pn->addArcW(startPlace, activityTransitions[activity]);
+        if (is_correct) {
+            Y.push_back(x_to_add);
         }
     }
 
-    // Соединяем переходы с конечным местом, у которых нет выходных активностей
-    for (const auto& activity : _activities) {
-        bool hasOutput = false;
-        for (const auto& set : _maximalSets) {
-            if (set.input.find(activity) != set.input.end()) {
-                hasOutput = true;
-                break;
-            }
-        }
-        if (!hasOutput) {
-            _pn->addArcW(activityTransitions[activity], endPlace);
-        }
+    PN* net = new PN();
+    // 6. Construct Petri net places
+    auto start_place = net->addPosition("start");
+    auto end_place = net->addPosition("end");
+    std::vector<PN::Position> places;
+    places.reserve(Y.size());
+    for (const auto& y : Y) {
+        places.push_back(net->addPosition());
     }
 
-    // Соединяем переходы с местами максимальных множеств
-    for (size_t i = 0; i < _maximalSets.size(); ++i) {
-        const auto& set = _maximalSets[i];
-        auto place = maximalSetPlaces[i];
+    // 7. Construct Petri net transitions
+    std::vector<PN::Transition> transitions;
+    transitions.reserve(activities_count);
+    for (size_t i = 0; i < activities_count; ++i) {
+        transitions.push_back(net->addTransition(activity_to_index.right.at(i)));
+    }
 
-        // Соединяем входные активности с местом
-        for (const auto& activity : set.input) {
-            _pn->addArcW(activityTransitions[activity], place);
+    // 8. Construct Petri net arcs
+    for (size_t i = 0; i < Y.size(); ++i) {
+        const auto& A = Y[i].first;
+        const auto& B = Y[i].second;
+        for (const auto& a : BitSetIterator<MAX_ACTIVITIES>(A)) {
+            net->addArc(transitions[a], places[i]);
         }
-
-        // Соединяем место с выходными активностями
-        for (const auto& activity : set.output) {
-            _pn->addArcW(place, activityTransitions[activity]);
+        for (const auto& b : BitSetIterator<MAX_ACTIVITIES>(B)) {
+            net->addArc(places[i], transitions[b]);
         }
     }
+    for (size_t t : initial_activities) {
+        net->addArc(start_place, transitions[t]);
+    }
+    for (size_t t : final_activities) {
+        net->addArc(transitions[t], end_place);
+    }
+
+    return net;
 }
 
 }}}} // namespace xi { namespace ldopa { namespace pn { namespace alpha {

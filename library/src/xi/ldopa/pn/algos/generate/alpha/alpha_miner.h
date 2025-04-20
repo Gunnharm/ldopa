@@ -33,38 +33,16 @@ public:
     using Attribute = IEventLog::Attribute;
     using PN = EventLogPetriNet<>;
     
-    AlphaMiner();
-
-    virtual ~AlphaMiner();
+    AlphaMiner() = default;
+    virtual ~AlphaMiner() = default;
 
     //----<IPetriNetMiner implementation>----
-    virtual PN* mine(IEventLog* log) override;
+    virtual PN* mine(IEventLog& log) override;
 
 private:
-    //----<Alpha algorithm steps>----
-    bool validateInput();
-    void extractActivities();
-    void buildDirectSuccession();
-    void buildCausalDependency();
-    void buildParallelRelation();
-    void findMaximalSets();
-    void constructPetriNet();
-
-private:
-    IEventLog* _log;                 ///< Input event log
-    PN* _pn;                         ///< Output Petri net
-    std::set<Attribute> _activities; ///< Set of all activities
+    static constexpr size_t MAX_ACTIVITIES = 60;
     
-    DirectSuccessionRelations<Attribute> _directSuccession;
-    CausalDependencyRelations<Attribute> _causalDependency;
-    ParallelRelations<Attribute> _parallel;
-
-    /** \brief Структура для хранения максимальных множеств */
-    struct MaximalSet {
-        std::set<Attribute> input;   ///< Входные активности
-        std::set<Attribute> output;  ///< Выходные активности
-    };
-    std::vector<MaximalSet> _maximalSets; ///< Вектор максимальных множеств
+    
 };
 
 }}}} // namespace xi { namespace ldopa { namespace pn { namespace alpha {

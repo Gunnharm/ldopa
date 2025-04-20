@@ -32,7 +32,7 @@ public:
     /** \brief Main mining method that produces a Petri net
      *  \returns Newly created Petri net that caller must manage
      */
-    virtual PN* mine(eventlog::IEventLog* log) = 0;
+    virtual PN* mine(eventlog::IEventLog& log) = 0;
 };
 
 }}} // namespace xi { namespace ldopa { namespace pn {
