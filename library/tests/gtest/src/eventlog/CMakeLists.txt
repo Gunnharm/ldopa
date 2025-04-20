@@ -1,5 +1,6 @@
 add_executable(LdopaLibEventlogTests 
     csvlog_test.cpp
+obsolete_csvlog_test.cpp
     sqlitelog_test.cpp
 )
 
