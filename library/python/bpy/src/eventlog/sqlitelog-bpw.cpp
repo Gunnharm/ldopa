@@ -4,13 +4,11 @@
 /// \author    Sergey Shershakov
 /// \version   0.1.0
 /// \date      27.02.2018
-/// \copyright (c) xidv.ru 2014–2018.
-///            This source is for internal use only — Restricted Distribution.
+/// \copyright (c) xidv.ru 2014пїЅ2018.
+///            This source is for internal use only пїЅ Restricted Distribution.
 ///            All rights reserved.
 ///
 ////////////////////////////////////////////////////////////////////////////////
-
-#include "stdafx.h"
 
 #include <boost/python.hpp>
 #include <boost/shared_ptr.hpp>
@@ -23,7 +21,7 @@ using xi::ldopa::eventlog::IEventLog;
 using xi::ldopa::eventlog::SQLiteLog;
 using xi::ldopa::eventlog::IAttributesEnumerator;
 
-// конвертер Attribute в питоновский тип
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Attribute пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 struct Attribute2PyType
 {
     typedef IEventLog::Attribute Attribute;
@@ -31,20 +29,20 @@ struct Attribute2PyType
 
     static PyObject* convert(const IEventLog::Attribute& atr)
     {
-        // иначе под каждый конкретный тип что-нибудь хорошенькое
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         AType atype = atr.getType();
         bool converted = true;
         object pyObj;
 
         switch (atype)
         {
-        case Attribute::tBlank:                                // пустой атрибут (Null) — туплет с нулем д.б.
+        case Attribute::tBlank:                                // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (Null) пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ.пїЅ.
         {
             break;
         }
         case Attribute::tChar:                                 // char
         {
-            // специального типа для char нет, поэтому превращаем в строку
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ char пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             pyObj = object(atr.toString());
             break;
         }
@@ -76,9 +74,9 @@ struct Attribute2PyType
         {
             // https://stackoverflow.com/questions/23064407/expose-c-buffer-as-python-3-bytes 
             //pyObj = object("BLOB data");
-            xi::attributes::IDestructableObject* dob = atr.asDestrObj();    // храним через полиморфный указатель
+            xi::attributes::IDestructableObject* dob = atr.asDestrObj();    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             xi::attributes::DestrByteArray* bArr = 
-                dynamic_cast<xi::attributes::DestrByteArray*>(dob);         // но знаем, что там внутри
+                dynamic_cast<xi::attributes::DestrByteArray*>(dob);         // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             if (!bArr)
             {
                 converted = false;
@@ -97,14 +95,14 @@ struct Attribute2PyType
             return incref(pyObj.ptr());
             //return incref(make_tuple(pyObj).ptr());
 
-        // если конверсия провалилась, кинем исключение
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         PyErr_SetString(PyExc_ResourceWarning, "Can't convert IEventLog::Attribute.");
         boost::python::throw_error_already_set();
-        return nullptr;         // это, конечно, unreachable code, но чтобы компилятор не ругался
+        return nullptr;         // пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, unreachable code, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     }
 };
 
-// конвертер AttributeRes в питоновскую tuple
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ AttributeRes пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ tuple
 struct AttributeRes2PyTuple
 {
     typedef IEventLog::Attribute Attribute;
@@ -113,16 +111,16 @@ struct AttributeRes2PyTuple
     static PyObject* convert(const IEventLog::AttributeRes& na)
     {
         if (!na.second)
-            return boost::python::incref(object().ptr());   // должен создать None
+            return boost::python::incref(object().ptr());   // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ None
 
-        // иначе под каждый конкретный тип что-нибудь хорошенькое
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         object pyObj = object(na.first);
         return incref(make_tuple(pyObj).ptr());
     }
 };
 
 
-// конвертер NamedAttribute в питоновскую tuple
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ NamedAttribute пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ tuple
 struct NamedAttribute2PyTuple
 {
     typedef IEventLog::Attribute Attribute;
@@ -149,7 +147,7 @@ struct IAttributesEnumerator2PyIter
     typedef IEventLog::Attribute        Attribute;
     typedef IEventLog::NamedAttribute   NamedAttribute;
 
-    // реализует протокол движения/эксцепции-по-окончании итератора python
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ python
     //static const Attribute next(IAttributesEnumerator* en)
     static NamedAttribute next(IAttributesEnumerator* en)
     {
@@ -158,17 +156,17 @@ struct IAttributesEnumerator2PyIter
             PyErr_SetString(PyExc_StopIteration, "No more attributes.");
             boost::python::throw_error_already_set();
         }
-        // иначе итерируема
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         return en->getNext();          
     }
 
-    // вспомогательная 
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
     static inline object PassThrough(const object& o) { return o; }
 
-    // обертка
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     static void wrap() //const char* pyName)
     {
-        class_<IAttributesEnumerator, boost::noncopyable>("IAttributesEnumerator", no_init) // для абстрактного так!
+        class_<IAttributesEnumerator, boost::noncopyable>("IAttributesEnumerator", no_init) // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ!
             .def("next", next)
             .def("__iter__", PassThrough)
         ;
@@ -192,11 +190,11 @@ struct IEventLog_PyWrappers
      */
     static PyObject* wrapEventLogAttr(bool isValid, const IEventLog::Attribute* attr)
     {
-        // если извлечь не получилось
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (!isValid)
-            return incref(object().ptr());   // должен создать None
+            return incref(object().ptr());   // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ None
 
-        // если получилось, то под каждый конкретный тип что-нибудь хорошенькое
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         object pyObj = object(*attr);
         return incref(make_tuple(pyObj).ptr());
     }
@@ -231,10 +229,10 @@ struct IEventLog_PyWrappers
         class_<IEventTrace, /*boost::shared_ptr<IEventTrace>,*/ boost::noncopyable>("IEventTrace", no_init)
             //.def("get_attrs_num", &IEventTrace::getAttrsNum)            
             .def("get_attr", getTraceAttr)
-            .def("get_attrs", &IEventTrace::getAttrs, return_value_policy<manage_new_object>())// питоновский GC грохнет
+            .def("get_attrs", &IEventTrace::getAttrs, return_value_policy<manage_new_object>())// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ GC пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             .def("get_event", &IEventTrace::getEvent, return_internal_reference<>())
-            .add_property("attrs_num", &IEventTrace::getAttrsNum)      // вообще, это может привести к запросу всех атрибутов...
-            .add_property("size", &IEventTrace::getSize)          // это тоже может привести к запросу числа ивентов и т.д.
+            .add_property("attrs_num", &IEventTrace::getAttrsNum)      // пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ...
+            .add_property("size", &IEventTrace::getSize)          // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅ.пїЅ.
 
             .def("get_log", &IEventTrace::getLog, return_internal_reference<>())
             ;
@@ -263,7 +261,7 @@ struct IEventLog_PyWrappers
             .def("get_log_attrs", &IEventLog::getLogAttrs, return_value_policy<manage_new_object>())
 
             // traces and attributes
-            .def("get_trace_attrs", &IEventLog::getTraceAttrs, return_value_policy<manage_new_object>())// питоновский GC грохнет
+            .def("get_trace_attrs", &IEventLog::getTraceAttrs, return_value_policy<manage_new_object>())// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ GC пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             .def("get_trace_size", &IEventLog::getTraceSize)
             .def("get_trace", &IEventLog::getTrace, return_internal_reference<>())
 
@@ -303,7 +301,7 @@ struct SQLiteLog_PyWrapper
 
     //-------------------------------------------------------------------------
 
-    // альтернативный подход к получению трассы
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     static IEventTrace& getTraceAlt(SQLiteLog& log, int traceNum)
     {
         IEventTrace* tr = log.getTrace(traceNum);
@@ -314,7 +312,7 @@ struct SQLiteLog_PyWrapper
 
     static void exportClass()
     {
-        // здесь, в общем-то, необязательно создавать объект sqlogClass, но его можно использовать
+        // пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ sqlogClass, пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         // https://stackoverflow.com/questions/10142417/boostpython-compilation-fails-because-copy-constructor-is-private
         object sqlogClass = class_<SQLiteLog, bases<IEventLog>, boost::noncopyable>("SQLiteLog", 
             init<const std::string&>())
@@ -335,12 +333,12 @@ struct SQLiteLog_PyWrapper
             // log attributes
             .def("get_log_attr",                getLogAttr)
             .def("get_log_attrs",               &SQLiteLog::getLogAttrs, 
-                    return_value_policy<manage_new_object>())    // питоновский GC грохнет
+                    return_value_policy<manage_new_object>())    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ GC пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
             // traces and atra attributes
             .def("get_trace_attr",              getTraceAttr)
             .def("get_trace_attrs",             &SQLiteLog::getTraceAttrs, 
-                    return_value_policy<manage_new_object>())// питоновский GC грохнет
+                    return_value_policy<manage_new_object>())// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ GC пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             .def("get_trace_size",              &SQLiteLog::getTraceSize)
             // http://www.boost.org/doc/libs/1_66_0/libs/python/doc/html/reference/function_invocation_and_creation/models_of_callpolicies.html
             // http://www.boost.org/doc/libs/1_66_0/libs/python/doc/html/tutorial/tutorial/functions.html
@@ -369,15 +367,15 @@ struct SQLiteLog_PyWrapper
 // export function for SQLiteLig classes
 void export_SQLiteLog()
 {
-    //--=регистрируем конвертеры=-    
+    //--=пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ=-    
     to_python_converter <SQLiteLog::Attribute, Attribute2PyType >();
     to_python_converter <SQLiteLog::AttributeRes, AttributeRes2PyTuple >();
     to_python_converter <SQLiteLog::NamedAttribute, NamedAttribute2PyTuple >();
 
-    //--=регистрируем итераторы=-
+    //--=пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ=-
     IAttributesEnumerator2PyIter::wrap();
 
-    //--=регистрируем обертки для классов=-
+    //--=пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ=-
     IEventLog_PyWrappers::exportClasses();
     SQLiteLog_PyWrapper::exportClass();
 }
