@@ -14,12 +14,14 @@
 
 // export methods
 void export_SQLiteLog();
+void export_CSVLog();
 void export_EvLogTSs();
 void export_TsFBuilder();
 void export_TsReducers();
 void export_TsMetricsCalc();
 void export_EvLogPNs();
 void export_PnRegsSynth();
+void export_PnAlphaMiner();
 void export_EventLogPetriNetDotWriter();
 void export_EventLogTSDotWriter();
 
@@ -29,6 +31,7 @@ BOOST_PYTHON_MODULE(eventlog)
 {
     // Transition systems
     export_SQLiteLog();
+    export_CSVLog();
     export_EvLogTSs();          // вынести в отдельный модуль
     export_TsFBuilder();        // и этот туда же
     export_TsReducers();        // +1
@@ -39,4 +42,5 @@ BOOST_PYTHON_MODULE(eventlog)
     export_EvLogPNs();          // модели
     export_PnRegsSynth();       // синтезатор регионами
     export_EventLogPetriNetDotWriter(); // записыватель graph viz-а
+    export_PnAlphaMiner();      // alpha-miner
 }

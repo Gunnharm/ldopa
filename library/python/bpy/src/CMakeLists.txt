@@ -23,11 +23,13 @@ add_library(eventlog_python SHARED
     
     # Event log
     eventlog/sqlitelog-bpw.cpp
+    eventlog/csvlog-bpw.cpp
     
     # Petri nets
     pn/eventlog_pn-bpw.cpp
     pn/pn_regs_synth-bpw.cpp
     pn/evlog_ptnets_dotwritter-bpw.cpp
+    pn/pn_alpha_miner-bpw.cpp
 )
 
 # Устанавливаем префикс для Python-модуля
