@@ -2,7 +2,8 @@
 #include "xi/ldopa/pn/models/evlog_ptnets.h"
 
 #include <boost/bimap.hpp>
-#include <iostream>
+#include <boost/dynamic_bitset/dynamic_bitset.hpp>
+
 
 namespace xi { namespace ldopa { namespace pn { namespace alpha {
 namespace {
@@ -18,68 +19,144 @@ namespace {
         return (subset & set) == subset;
     }
 
-    template <std::size_t N>
-    class BitSetIterator
-    {
+    using DB = boost::dynamic_bitset<>;
+    
+    // Обёртка над dynamic_bitset для range-based for
+    class BitSetIterable {
     public:
-        // Конструктор принимает ссылку на std::bitset
-        explicit BitSetIterator(const std::bitset<N>& bs) : bitset_(bs) {}
-
-        // Вложенный класс-итератор
-        class iterator
-        {
+        // Итератор, возвращающий индексы установленных битов
+        class Iterator {
         public:
-            // Конструктор итератора
-            iterator(const std::bitset<N>* bs, std::size_t pos)
-                : bitsetPtr_(bs), pos_(pos) {}
-
-            // Возвращает текущую позицию установленного бита
-            std::size_t operator*() const
-            {
-                return pos_;
-            }
-
-            // Переход к следующему установленному биту
-            iterator& operator++()
-            {
-                // Ищем следующий установленный бит
-                do {
-                    ++pos_;
-                } while (pos_ < N && !bitsetPtr_->test(pos_));
+            // Типы для соответствия требованиям Iterator concept
+            using iterator_category = std::forward_iterator_tag;
+            using value_type        = std::size_t;
+            using difference_type   = std::ptrdiff_t;
+            using pointer           = const std::size_t*;
+            using reference         = const std::size_t&;
+            
+            Iterator(const DB* bs, std::size_t pos)
+                : bset(bs), index(pos) { /* всё готово */ }
+    
+            // Операции итератора
+            value_type operator*() const { return index; }
+            Iterator& operator++() {
+                index = bset->find_next(index);
                 return *this;
             }
-
-            // Сравнение на неравенство для окончания итерации
-            bool operator!=(const iterator& other) const
-            {
-                // Проверяем, одинаковы ли позиции и ссылаются ли они на один и тот же битсет
-                return pos_ != other.pos_ || bitsetPtr_ != other.bitsetPtr_;
+            bool operator==(const Iterator& o) const {
+                return bset == o.bset && index == o.index;
             }
-
+            bool operator!=(const Iterator& o) const {
+                return !(*this == o);
+            }
+    
         private:
-            const std::bitset<N>* bitsetPtr_;
-            std::size_t pos_;
+            const DB*    bset;
+            std::size_t  index;
         };
+    
+        explicit BitSetIterable(const DB& bs) : b(bs) {}
+    
+        Iterator begin() const {
+            std::size_t first = b.find_first();
+            if (first == DB::npos)
+                return end();
+            return Iterator(&b, first);
+        }
+    
+        Iterator end() const {
+            return Iterator(&b, DB::npos);
+        }
+    
+    private:
+        const DB& b;
+    };
 
-        // Метод для получения итератора на первый установленный бит
-        iterator begin() const
-        {
-            // Ищем индекс первого установленного бита
-            std::size_t firstSet = 0;
-            while (firstSet < N && !bitset_.test(firstSet)) {
-                ++firstSet;
-            }
-            return iterator(&bitset_, firstSet);
+    using Clique = DB;
+    class BronKerbosh {
+    public:
+        BronKerbosh(const std::vector<DB> &adj) : adj(adj), R(adj.size()), left_mask(CreateBitSetRange(adj.size(), 0, adj.size() / 2)), right_mask(CreateBitSetRange(adj.size(), adj.size() / 2, adj.size())) {
+
         }
 
-        // Метод для получения итератора на конец (условно за границей)
-        iterator end() const
-        {
-            return iterator(&bitset_, N);
+        std::vector<Clique> Run() {
+            DB P(adj.size()), X(adj.size());
+            P.set();
+            R.reset();
+            std::vector<Clique> out;
+            RunInternal(0, P, X, out);
+            return out;
         }
 
     private:
-        const std::bitset<N>& bitset_;
+        void RunInternal(
+            size_t iteration,            // глубина рекурсии, на первых двух шагах мы ищем кандидатов только с левой а затем с правой половины
+            DB& P,
+            DB& X,
+            std::vector<Clique> &out     // результат
+        ) {
+            if (P.none() && X.none()) {
+                if (iteration > 1) {
+                    // R — максимальная клика
+                    out.emplace_back(R);
+                }
+                return;
+            }
+            // Pivot u ∈ P∪X с max |P ∩ N(u)|
+            DB PX = P | X;  // побитовое OR 
+            ApplyMaskBasedOnIteration(iteration, PX);  // убираем невозможные на данной итерации пивоты
+            size_t best_u = PX.find_first(), best_cnt = 0;
+            for (size_t u = PX.find_first(); u != DB::npos; u = PX.find_next(u)) {
+                // пересечение P ∧ N(u)
+                DB tmp = P & adj[u];
+                size_t cnt = tmp.count();
+                if (cnt > best_cnt) { best_cnt = cnt; best_u = u; }
+            }
+            // кандидаты = P \ N(best_u)
+            DB ext = P;
+            if (best_cnt > 0) {
+                ext &= (~adj[best_u]);  // P AND NOT N(u) 
+            }
+            ApplyMaskBasedOnIteration(iteration, ext);
+    
+    
+            // по каждому v ∈ ext
+            for (size_t v = ext.find_first(); v != DB::npos; v = ext.find_next(v)) {
+                R.set(v);
+                DB P2 = P & adj[v];  // обновл. P
+                DB X2 = X & adj[v];  // обновл. X
+                RunInternal(iteration + 1, P2, X2, out);
+                R.reset(v);
+                P.reset(v);
+                X.set(v);
+            }
+        }
+
+        void ApplyMaskBasedOnIteration(size_t iteration, DB& set) {
+            switch (iteration) {
+            case 0:
+                set &= left_mask;
+                break;
+            case 1:
+                set &= right_mask;
+                break;
+            }
+        }
+
+        static DB CreateBitSetRange(size_t size, size_t left, size_t right) {
+            DB res(right - left);
+            res.set();
+            res.resize(size);
+            res <<= left;
+            return res;
+        }
+
+    private:
+        const std::vector<DB> &adj; // матрица смежности
+        DB R;                       // текущая клика
+
+        const DB left_mask;         // маска для левой половины
+        const DB right_mask;        // маска для правой половины
     };
 }
 
@@ -158,71 +235,36 @@ AlphaMiner::PN* AlphaMiner::mine(IEventLog& log) {
         }
     }
 
-    // 4. Build X
-    std::vector<std::pair<std::bitset<MAX_ACTIVITIES>, std::bitset<MAX_ACTIVITIES>>> X;
-    const auto check_mask_choice = [&](const std::bitset<MAX_ACTIVITIES>& mask) {
-        for (size_t i = 0; i < activities_count; ++i) {
-            if (!mask.test(i)) {
-                continue;
-            }
-            for (size_t j = 0; j < activities_count; ++j) {
-                if (!mask.test(j)) {
-                    continue;
-                }
-                if (footprint_matrix[i][j] != ActivitiesRelationship::CHOICE) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    };
-    for (size_t mask_left = 1; mask_left < (1ull << activities_count); ++mask_left) {
-        std::bitset<MAX_ACTIVITIES> current_mask_left(mask_left);
-        if (!check_mask_choice(current_mask_left)) {
-            continue;
-        }
-        for (size_t mask_right = 1; mask_right < (1ull << activities_count); ++mask_right) {
-            std::bitset<MAX_ACTIVITIES> current_mask_right(mask_right);
-            if (!check_mask_choice(current_mask_right)) {
-                continue;
-            }
-            bool is_correct = true;
-            for (size_t i = 0; i < activities_count && is_correct; ++i) {
-                if (!current_mask_left.test(i)) {
-                    continue;
-                }
-                for (size_t j = 0; j < activities_count && is_correct; ++j) {
-                    if (!current_mask_right.test(j)) {
-                        continue;
-                    }
-                    if (footprint_matrix[i][j] != ActivitiesRelationship::CAUSAL_FORWARD) {
-                        is_correct = false;
-                    }
-                }
-            }
-            if (is_correct) {
-                X.push_back(std::make_pair(current_mask_left, current_mask_right));
+    // 5. Build Graph
+    std::vector<DB> graph(activities_count*2, DB(activities_count*2));
+    for (size_t i = 0; i < activities_count; ++i) {
+        for (size_t j = i + 1; j < activities_count; ++j) {
+            switch (footprint_matrix[i][j]) {
+            case ActivitiesRelationship::CAUSAL_FORWARD:
+                graph[i].set(activities_count + j);
+                graph[activities_count + j].set(i);
+                break;
+            case ActivitiesRelationship::CAUSAL_BACKWARD:
+                graph[activities_count + i].set(j);
+                graph[j].set(activities_count + i);
+                break;
+            case ActivitiesRelationship::CHOICE:
+                graph[i].set(j);
+                graph[j].set(i);
+
+                graph[activities_count + i].set(activities_count + j);
+                graph[activities_count + j].set(activities_count + i);
+                break;
+            case ActivitiesRelationship::PARALLEL:
+                break;
             }
         }
     }
 
-    // 5. Build Y
-    std::vector<std::pair<std::bitset<MAX_ACTIVITIES>, std::bitset<MAX_ACTIVITIES>>> Y;
-    for (const auto& x_to_add : X) {
-        bool is_correct = true;
-        for (const auto& x_check : X) {
-            if (x_to_add == x_check) {
-                continue;
-            }
-            if (is_subset(x_to_add.first, x_check.first) && is_subset(x_to_add.second, x_check.second)) {
-                is_correct = false;
-                break;
-            }
-        }
-        if (is_correct) {
-            Y.push_back(x_to_add);
-        }
-    }
+    // Find all maximal cliques (Y)
+    BronKerbosh bk(graph);
+    std::vector<Clique> Y = bk.Run();
+
 
     PN* net = new PN();
     // 6. Construct Petri net places
@@ -243,13 +285,12 @@ AlphaMiner::PN* AlphaMiner::mine(IEventLog& log) {
 
     // 8. Construct Petri net arcs
     for (size_t i = 0; i < Y.size(); ++i) {
-        const auto& A = Y[i].first;
-        const auto& B = Y[i].second;
-        for (const auto& a : BitSetIterator<MAX_ACTIVITIES>(A)) {
-            net->addArc(transitions[a], places[i]);
-        }
-        for (const auto& b : BitSetIterator<MAX_ACTIVITIES>(B)) {
-            net->addArc(places[i], transitions[b]);
+        for (size_t vertex : BitSetIterable(Y[i])) {
+            if (vertex < activities_count) {
+                net->addArc(transitions[vertex], places[i]);
+            } else {
+                net->addArc(places[i], transitions[vertex - activities_count]);
+            }
         }
     }
     for (size_t t : initial_activities) {
