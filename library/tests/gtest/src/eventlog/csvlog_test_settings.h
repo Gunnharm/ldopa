@@ -4,8 +4,8 @@
 /// \author    Sergey Shershakov
 /// \version   0.1.0
 /// \date      23.02.2016
-/// \copyright (c) xidv.ru 2014–2016.
-///            This source is for internal use only — Restricted Distribution.
+/// \copyright (c) xidv.ru 2014ï¿½2016.
+///            This source is for internal use only ï¿½ Restricted Distribution.
 ///            All rights reserved.
 ///
 /// HOW TO SET A TEST ENVIRONMENT:

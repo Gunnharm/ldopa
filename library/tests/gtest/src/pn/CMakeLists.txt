@@ -1,7 +1,8 @@
 add_executable(LdopaLibPNTests 
     algos/base_ptnet_dotwriter_1_test.cpp
     algos/pn_synthesis_1_test.cpp
-
+    algos/alpha_miner_test.cpp
+    algos/maximal_sets_constructor_test.cpp
     models/base_ptnet_1_test.cpp
 )
 

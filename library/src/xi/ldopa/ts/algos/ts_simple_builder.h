@@ -137,10 +137,10 @@ class LDOPA_API PrefixStateFunc : public ITsStateFuncVarWs { //ITsStateFunc {
 public:
 
     /** \brief Defines a special value for the unlimited wnd size. */
-    static const int UNLIM_WND_SIZE = -1;
+    static const int UNLIM_WND_SIZE;
 
     /** \brief Defines a special value for the default wnd size. */
-    static const int DEFAULT_WND_SIZE = -2;
+    static const int DEFAULT_WND_SIZE;
 
 public:
     // types

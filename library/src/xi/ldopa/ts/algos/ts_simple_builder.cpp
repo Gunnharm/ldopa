@@ -11,6 +11,9 @@ namespace xi { namespace ldopa { namespace ts { ;   //
 // class PrefixStateFunc
 //==============================================================================
 
+const int PrefixStateFunc::UNLIM_WND_SIZE = -1;
+
+const int PrefixStateFunc::DEFAULT_WND_SIZE = -2;
 
 PrefixStateFunc::PrefixStateFunc(IEventLog* log, AttrListStateIDsPool* stIDsPool, 
     int ws /*= UNLIM_WND_SIZE*/)
